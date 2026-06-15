@@ -1,224 +1,277 @@
 {
-  "stories": [
-    {
-      "user": {
-        "name": "camillette",
-        "avatar_url": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/camillette1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/camillette2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/camillette3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "lucas_off",
-        "avatar_url": "https://randomuser.me/api/portraits/men/2.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/lucasoff1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lucasoff2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lucasoff3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "manonmns",
-        "avatar_url": "https://randomuser.me/api/portraits/women/3.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/manonmns1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/manonmns2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/manonmns3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "theofts",
-        "avatar_url": "https://randomuser.me/api/portraits/men/4.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/theofts1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/theofts2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/theofts3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "leapls",
-        "avatar_url": "https://randomuser.me/api/portraits/women/5.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/leapls1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/leapls2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/leapls3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "hugoooo",
-        "avatar_url": "https://randomuser.me/api/portraits/men/6.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/hugoooo1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/hugoooo2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/hugoooo3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "chloeline",
-        "avatar_url": "https://randomuser.me/api/portraits/women/7.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/chloeline1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/chloeline2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/chloeline3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "nathaniel_",
-        "avatar_url": "https://randomuser.me/api/portraits/men/8.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/nathaniel1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/nathaniel2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/nathaniel3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "emmaalice",
-        "avatar_url": "https://randomuser.me/api/portraits/women/9.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/emmaalice1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/emmaalice2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/emmaalice3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "romainrmn",
-        "avatar_url": "https://randomuser.me/api/portraits/men/10.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/romainrmn1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/romainrmn2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/romainrmn3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "jadejdd",
-        "avatar_url": "https://randomuser.me/api/portraits/women/11.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/jadejdd1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/jadejdd2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/jadejdd3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "maximemx",
-        "avatar_url": "https://randomuser.me/api/portraits/men/12.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/maximemx1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/maximemx2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/maximemx3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "lisalisaa",
-        "avatar_url": "https://randomuser.me/api/portraits/women/13.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/lisalisaa1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lisalisaa2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lisalisaa3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "antoinettt",
-        "avatar_url": "https://randomuser.me/api/portraits/men/14.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/antoinettt1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/antoinettt2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/antoinettt3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "sarahsrs",
-        "avatar_url": "https://randomuser.me/api/portraits/women/15.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/sarahsrs1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/sarahsrs2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/sarahsrs3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "thomasthms",
-        "avatar_url": "https://randomuser.me/api/portraits/men/16.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/thomasthms1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/thomasthms2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/thomasthms3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "lucielucie",
-        "avatar_url": "https://randomuser.me/api/portraits/women/17.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/lucielucie1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lucielucie2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/lucielucie3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "clementoff",
-        "avatar_url": "https://randomuser.me/api/portraits/men/18.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/clementoff1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/clementoff2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/clementoff3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "paulinepln",
-        "avatar_url": "https://randomuser.me/api/portraits/women/19.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/paulinepln1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/paulinepln2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/paulinepln3/800/1400" }
-      ]
-    },
-    {
-      "user": {
-        "name": "baptistebpt",
-        "avatar_url": "https://randomuser.me/api/portraits/men/20.jpg"
-      },
-      "items": [
-        { "image_url": "https://picsum.photos/seed/baptistebpt1/800/1400" },
-        { "image_url": "https://picsum.photos/seed/baptistebpt2/800/1400" },
-        { "image_url": "https://picsum.photos/seed/baptistebpt3/800/1400" }
-      ]
-    }
-  ]
+    "stories": [
+        {
+            "user": {
+                "id": "user-0",
+                "name": "paulineNomballais",
+                "avatar_url": "https://randomuser.me/api/portraits/women/26.jpg",
+                "is_current": true
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/camillette1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/camillette2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/camillette3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-1",
+                "name": "camillette",
+                "avatar_url": "https://randomuser.me/api/portraits/women/1.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/camillette1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/camillette2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/camillette3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-2",
+                "name": "lucas_off",
+                "avatar_url": "https://randomuser.me/api/portraits/men/2.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/lucasoff1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucasoff2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucasoff3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-3",
+                "name": "manonmns",
+                "avatar_url": "https://randomuser.me/api/portraits/women/3.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/manonmns1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/manonmns2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/manonmns3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-4",
+                "name": "theofts",
+                "avatar_url": "https://randomuser.me/api/portraits/men/4.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/theofts1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/theofts2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/theofts3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-5",
+                "name": "leapls",
+                "avatar_url": "https://randomuser.me/api/portraits/women/5.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/leapls1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/leapls2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/leapls3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-6",
+                "name": "hugoooo",
+                "avatar_url": "https://randomuser.me/api/portraits/men/6.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/hugoooo1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/hugoooo2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/hugoooo3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-7",
+                "name": "chloeline",
+                "avatar_url": "https://randomuser.me/api/portraits/women/7.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/chloeline1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/chloeline2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/chloeline3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-8",
+                "name": "nathaniel_",
+                "avatar_url": "https://randomuser.me/api/portraits/men/8.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/nathaniel1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/nathaniel2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/nathaniel3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-9",
+                "name": "emmaalice",
+                "avatar_url": "https://randomuser.me/api/portraits/women/9.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/emmaalice1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/emmaalice2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/emmaalice3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-10",
+                "name": "romainrmn",
+                "avatar_url": "https://randomuser.me/api/portraits/men/10.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/romainrmn1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/romainrmn2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/romainrmn3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-11",
+                "name": "jadejdd",
+                "avatar_url": "https://randomuser.me/api/portraits/women/11.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/jadejdd1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/jadejdd2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/jadejdd3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-12",
+                "name": "maximemx",
+                "avatar_url": "https://randomuser.me/api/portraits/men/12.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/maximemx1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/maximemx2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/maximemx3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-13",
+                "name": "lisalisaa",
+                "avatar_url": "https://randomuser.me/api/portraits/women/13.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/lisalisaa1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lisalisaa2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lisalisaa3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-14",
+                "name": "antoinettt",
+                "avatar_url": "https://randomuser.me/api/portraits/men/14.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/antoinettt1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/antoinettt2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/antoinettt3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-15",
+                "name": "sarahsrs",
+                "avatar_url": "https://randomuser.me/api/portraits/women/15.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/sarahsrs1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/sarahsrs2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/sarahsrs3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-16",
+                "name": "thomasthms",
+                "avatar_url": "https://randomuser.me/api/portraits/men/16.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/thomasthms1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/thomasthms2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/thomasthms3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-17",
+                "name": "lucielucie",
+                "avatar_url": "https://randomuser.me/api/portraits/women/17.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/lucielucie1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucielucie2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucielucie3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-18",
+                "name": "clementoff",
+                "avatar_url": "https://randomuser.me/api/portraits/men/18.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/clementoff1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/clementoff2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/clementoff3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-19",
+                "name": "paulinepln",
+                "avatar_url": "https://randomuser.me/api/portraits/women/19.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/paulinepln1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/paulinepln2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/paulinepln3/800/1400" }
+            ]
+        },
+        {
+            "user": {
+                "id": "user-20",
+                "name": "baptistebpt",
+                "avatar_url": "https://randomuser.me/api/portraits/men/20.jpg",
+                "is_current": false
+            },
+            "items": [
+                { "image_url": "https://picsum.photos/seed/baptistebpt1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/baptistebpt2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/baptistebpt3/800/1400" }
+            ]
+        }
+    ]
 }

@@ -18,7 +18,6 @@ final class StoryService: StoryServiceProtocol {
         }
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         let decoded = try decoder.decode(StoriesResponse.self, from: data)
         return decoded.stories
     }

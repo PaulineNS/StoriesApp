@@ -9,4 +9,8 @@ import Foundation
 
 struct StoryItem: Codable {
     let imageURL: String
+
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "image_url"
+    }
 }

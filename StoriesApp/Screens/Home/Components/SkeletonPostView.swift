@@ -36,7 +36,7 @@ struct SkeletonPostView: View {
     private var image: some View {
         RoundedRectangle(cornerRadius: 0)
             .frame(maxWidth: .infinity)
-            .frame(height: 300)
+            .frame(height: 500)
     }
 
     private var description: some View {
@@ -50,4 +50,8 @@ struct SkeletonPostView: View {
         }
         .padding(.horizontal, 12)
     }
+}
+
+#Preview {
+    SkeletonPostView()
 }

@@ -8,6 +8,15 @@
 import Foundation
 
 struct User: Codable {
+    let id: String
     let name: String
     let avatarURL: String
+    let isCurrent: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case avatarURL = "avatar_url"
+        case isCurrent = "is_current"
+    }
 }
