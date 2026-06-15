@@ -22,12 +22,8 @@ struct AppRootView: View {
     @ViewBuilder
     private func sheetView(for sheet: AppSheetDestination) -> some View {
         switch sheet {
-        case .story(let stories, let startIndex):
-            factory.makeStoryView(
-                stories: stories,
-                startIndex: startIndex,
-                router: router
-            )
+        case .story(let startIndex):
+            factory.makeStoryView(router: router, startIndex: startIndex)
         }
     }
 }

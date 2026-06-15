@@ -13,12 +13,12 @@ final class StoryViewModel {
     private(set) var currentStory: Story
     private(set) var currentItemIndex: Int = 0
     private(set) var currentItemProgress: CGFloat = 0
+    private var currentStoryIndex: Int
 
     private let router: AppRouter
     private let persistence: StoryPersistence
+    private let appState: AppState
     private var timer: Timer?
-    private var stories: [Story]
-    private var currentStoryIndex: Int
 
     private let storyItemDuration: CGFloat = 5.0
     private let timerInterval: CGFloat = 0.05
@@ -26,15 +26,15 @@ final class StoryViewModel {
     init(
         router: AppRouter,
         persistence: StoryPersistence,
-        stories: [Story],
+        appState: AppState,
         startIndex: Int
     ) {
         self.router = router
         self.persistence = persistence
-        self.stories = stories
+        self.appState = appState
         self.currentStoryIndex = startIndex
-        self.currentStory = stories[startIndex]
-        self.currentItemIndex = firstUnseenItemIndex(in: stories[startIndex])
+        self.currentStory = appState.stories[startIndex]
+        self.currentItemIndex = firstUnseenItemIndex(in: appState.stories[startIndex])
     }
 
     var currentStoryItem: StoryItem {
@@ -82,29 +82,39 @@ final class StoryViewModel {
             currentItemProgress = 0
             markCurrentItemAsSeen()
         } else {
-            goToNextStory()
+            navigateToStory(direction: .next)
         }
     }
 
     func goToPreviousItem() {
-        stopTimer()
         if currentItemIndex > 0 {
+            stopTimer()
             currentItemIndex -= 1
+            currentItemProgress = 0
+            markCurrentItemAsSeen()
+        } else {
+            currentItemProgress = 0
+            startTimer()
         }
-        currentItemProgress = 0
-        markCurrentItemAsSeen()
     }
 
-    private func goToNextStory() {
-        if currentStoryIndex < stories.count - 1 {
-            stopTimer()
+    func navigateToStory(direction: StoryDirection) {
+        switch direction {
+        case .next:
+            guard currentStoryIndex < appState.stories.count - 1 else {
+                appState.shouldLoadMorePage = true
+                return
+            }
             currentStoryIndex += 1
-            currentStory = stories[currentStoryIndex]
-            currentItemIndex = 0
-            currentItemProgress = 0
-        } else {
-            dismiss()
+        case .previous:
+            guard currentStoryIndex > 0 else { return }
+            currentStoryIndex -= 1
         }
+        stopTimer()
+        currentStory = appState.stories[currentStoryIndex]
+        currentItemIndex = firstUnseenItemIndex(in: currentStory)
+        currentItemProgress = 0
+        markCurrentItemAsSeen()
     }
 
     private func firstUnseenItemIndex(in story: Story) -> Int {

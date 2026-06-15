@@ -10,39 +10,39 @@ import Foundation
 @Observable
 final class HomeViewModel {
 
-    private(set) var stories: [Story] = []
-
     private let service: StoryServiceProtocol
     private let persistence: StoryPersistence
     private let router: AppRouter
 
-    private var currentPage = 0
+    let appState: AppState
 
     init(
         service: StoryServiceProtocol = StoryService(),
         persistence: StoryPersistence,
-        router: AppRouter
+        router: AppRouter,
+        appState: AppState
     ) {
         self.service = service
         self.persistence = persistence
         self.router = router
+        self.appState = appState
     }
 
     @MainActor
     func loadStories() {
         do {
-            stories = try service.fetchStories()
+            appState.stories = try service.fetchStories()
         } catch {
             print("Failed to load stories: \(error)")
         }
     }
 
     func selectStory(at index: Int) {
-        router.present(sheet: .story(stories: stories, startIndex: index))
+        router.present(sheet: .story(startIndex: index))
     }
 
     func index(of story: Story) -> Int? {
-        stories.firstIndex(where: { $0.user.id == story.user.id })
+        appState.stories.firstIndex(where: { $0.user.id == story.user.id })
     }
 
     func isStorySeen(_ story: Story) -> Bool {
@@ -50,30 +50,33 @@ final class HomeViewModel {
     }
 
     func loadMoreStoriesIfNeeded(currentStory: Story) {
-        guard let index = stories.firstIndex(where: { $0.user.id == currentStory.user.id }) else { return }
-        if index >= stories.count - 5 {
+        guard let index = appState.stories.firstIndex(where: { $0.user.id == currentStory.user.id }) else { return }
+        if index >= appState.stories.count - 5 {
             loadMoreStories()
         }
     }
 
-    private func loadMoreStories() {
+    func loadMoreStories() {
+        guard !appState.isLoadingMorePage else { return }
         guard let baseStories = try? service.fetchStories() else { return }
-        currentPage += 1
+        appState.isLoadingMorePage = true
+        appState.currentPage += 1
         let newStories = baseStories
             .filter { !$0.user.isCurrent }
             .map { story in
                 Story(
                     user: User(
-                        id: "\(story.user.id)-page\(currentPage)",
+                        id: "\(story.user.id)-page\(appState.currentPage)",
                         name: story.user.name,
                         avatarURL: story.user.avatarURL,
                         isCurrent: false
                     ),
                     items: story.items.map { item in
-                        StoryItem(imageURL: "\(item.imageURL)?page=\(currentPage)")
+                        StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
                     }
                 )
             }
-        stories.append(contentsOf: newStories)
+        appState.stories.append(contentsOf: newStories)
+        appState.isLoadingMorePage = false
     }
 }

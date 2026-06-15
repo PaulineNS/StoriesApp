@@ -8,22 +8,22 @@
                 "is_current": true
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/camillette1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/camillette2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/camillette3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/paulineNomballais2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/paulineNomballais7/800/1400" },
+                { "image_url": "https://picsum.photos/seed/paulineNomballais1/800/1400" },
             ]
         },
         {
             "user": {
                 "id": "user-1",
                 "name": "camillette",
-                "avatar_url": "https://randomuser.me/api/portraits/women/1.jpg",
+                "avatar_url": "https://randomuser.me/api/portraits/women/44.jpg",
                 "is_current": false
             },
             "items": [
                 { "image_url": "https://picsum.photos/seed/camillette1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/camillette2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/camillette3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/camillette4/800/1400" },
+                { "image_url": "https://picsum.photos/seed/camillette5/800/1400" }
             ]
         },
         {
@@ -34,8 +34,8 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/lucasoff1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/lucasoff2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucasoff4/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lucasoff5/800/1400" },
                 { "image_url": "https://picsum.photos/seed/lucasoff3/800/1400" }
             ]
         },
@@ -47,7 +47,7 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/manonmns1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/manonmns0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/manonmns2/800/1400" },
                 { "image_url": "https://picsum.photos/seed/manonmns3/800/1400" }
             ]
@@ -61,8 +61,8 @@
             },
             "items": [
                 { "image_url": "https://picsum.photos/seed/theofts1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/theofts2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/theofts3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/theofts5/800/1400" },
+                { "image_url": "https://picsum.photos/seed/theofts4/800/1400" }
             ]
         },
         {
@@ -73,7 +73,7 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/leapls1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/leapls0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/leapls2/800/1400" },
                 { "image_url": "https://picsum.photos/seed/leapls3/800/1400" }
             ]
@@ -87,7 +87,7 @@
             },
             "items": [
                 { "image_url": "https://picsum.photos/seed/hugoooo1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/hugoooo2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/hugoooo0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/hugoooo3/800/1400" }
             ]
         },
@@ -114,7 +114,7 @@
             "items": [
                 { "image_url": "https://picsum.photos/seed/nathaniel1/800/1400" },
                 { "image_url": "https://picsum.photos/seed/nathaniel2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/nathaniel3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/nathaniel4/800/1400" }
             ]
         },
         {
@@ -125,9 +125,9 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/emmaalice1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/emmaalice2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/emmaalice3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/emmaalice0/800/1400" },
+                { "image_url": "https://picsum.photos/seed/emmaalice4/800/1400" },
+                { "image_url": "https://picsum.photos/seed/emmaalice5/800/1400" }
             ]
         },
         {
@@ -139,7 +139,7 @@
             },
             "items": [
                 { "image_url": "https://picsum.photos/seed/romainrmn1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/romainrmn2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/romainrmn0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/romainrmn3/800/1400" }
             ]
         },
@@ -164,7 +164,7 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/maximemx1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/maximemx0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/maximemx2/800/1400" },
                 { "image_url": "https://picsum.photos/seed/maximemx3/800/1400" }
             ]
@@ -177,9 +177,9 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/lisalisaa1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/lisalisaa0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/lisalisaa2/800/1400" },
-                { "image_url": "https://picsum.photos/seed/lisalisaa3/800/1400" }
+                { "image_url": "https://picsum.photos/seed/lisalisaa4/800/1400" }
             ]
         },
         {
@@ -203,7 +203,7 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/sarahsrs1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/sarahsrs0/800/1400" },
                 { "image_url": "https://picsum.photos/seed/sarahsrs2/800/1400" },
                 { "image_url": "https://picsum.photos/seed/sarahsrs3/800/1400" }
             ]
@@ -217,7 +217,7 @@
             },
             "items": [
                 { "image_url": "https://picsum.photos/seed/thomasthms1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/thomasthms2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/thomasthms4/800/1400" },
                 { "image_url": "https://picsum.photos/seed/thomasthms3/800/1400" }
             ]
         },
@@ -268,8 +268,8 @@
                 "is_current": false
             },
             "items": [
-                { "image_url": "https://picsum.photos/seed/baptistebpt1/800/1400" },
-                { "image_url": "https://picsum.photos/seed/baptistebpt2/800/1400" },
+                { "image_url": "https://picsum.photos/seed/baptistebpt0/800/1400" },
+                { "image_url": "https://picsum.photos/seed/baptistebpt5/800/1400" },
                 { "image_url": "https://picsum.photos/seed/baptistebpt3/800/1400" }
             ]
         }

@@ -11,6 +11,8 @@ struct StoryView: View {
 
     @State private var viewModel: StoryViewModel
     @State private var showShareAlert = false
+    @State private var dragOffset: CGFloat = 0
+    @State private var slideDirection: Edge = .trailing
 
     init(viewModel: StoryViewModel) {
         self._viewModel = State(initialValue: viewModel)
@@ -34,6 +36,8 @@ struct StoryView: View {
                     .frame(height: geo.size.height * 0.10)
                     .background(Color.black)
             }
+            .offset(y: dragOffset)
+            .gesture(dragGesture)
         }
         .onDisappear {
             viewModel.stopTimer()
@@ -56,10 +60,12 @@ struct StoryView: View {
                 Color(.systemGray6)
             }
         }
-        .id(viewModel.currentStoryItem.imageURL)
         .frame(width: width, height: height)
         .clipped()
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .id("\(viewModel.currentStory.user.id)-\(viewModel.currentStoryItem.imageURL)")
+        .transition(.move(edge: slideDirection))
+        .animation(.easeInOut(duration: 0.3), value: viewModel.currentStory.user.id)
     }
 
     private var header: some View {
@@ -108,7 +114,7 @@ struct StoryView: View {
     }
 
     private var userLabel: some View {
-        Text(viewModel.currentStory.user.name)
+        Text(viewModel.currentStory.user.isCurrent ? "Your story" : viewModel.currentStory.user.name)
             .font(.system(size: 14, weight: .semibold))
             .foregroundColor(.white)
     }
@@ -184,10 +190,39 @@ struct StoryView: View {
                 }
         }
     }
+
+    private var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                if value.translation.height > 0 && abs(value.translation.height) > abs(value.translation.width) {
+                    dragOffset = value.translation.height
+                }
+            }
+            .onEnded { value in
+                let horizontal = value.translation.width
+                let vertical = value.translation.height
+
+                if abs(horizontal) > abs(vertical) {
+                    if horizontal < -50 {
+                        slideDirection = .trailing
+                        viewModel.navigateToStory(direction: .next)
+                    } else if horizontal > 50 {
+                        slideDirection = .leading
+                        viewModel.navigateToStory(direction: .previous)
+                    }
+                } else if vertical > 150 {
+                    viewModel.dismiss()
+                } else {
+                    withAnimation(.spring()) {
+                        dragOffset = 0
+                    }
+                }
+            }
+    }
 }
 
 #Preview {
     let router = AppRouterImpl()
     let factory = AppFactory()
-    return factory.makeStoryView(stories: StoryServiceMock.mockStories, startIndex: 0, router: router)
+    return factory.makeStoryView(router: router, startIndex: 0)
 }

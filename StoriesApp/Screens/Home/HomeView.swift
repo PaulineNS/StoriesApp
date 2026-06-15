@@ -24,12 +24,18 @@ struct HomeView: View {
         .onAppear {
             viewModel.loadStories()
         }
+        .onChange(of: viewModel.appState.shouldLoadMorePage) { _, shouldLoad in
+            if shouldLoad {
+                viewModel.loadMoreStories()
+                viewModel.appState.shouldLoadMorePage = false
+            }
+        }
     }
 
     private var storiesList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
-                ForEach(viewModel.stories, id: \.user.id) { story in
+                ForEach(viewModel.appState.stories, id: \.user.id) { story in
                     StoryAvatarView(
                         story: story,
                         isSeen: viewModel.isStorySeen(story)

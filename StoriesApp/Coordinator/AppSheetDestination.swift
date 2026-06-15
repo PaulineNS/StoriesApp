@@ -8,11 +8,7 @@
 import Foundation
 
 enum AppSheetDestination: Identifiable {
-    case story(stories: [Story], startIndex: Int)
+    case story(startIndex: Int)
 
-    var id: String {
-        switch self {
-        case .story: return "story"
-        }
-    }
+    var id: String { "story" }
 }
