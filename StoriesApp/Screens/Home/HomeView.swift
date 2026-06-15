@@ -39,6 +39,9 @@ struct HomeView: View {
                             viewModel.selectStory(at: index)
                         }
                     }
+                    .onAppear {
+                        viewModel.loadMoreStoriesIfNeeded(currentStory: story)
+                    }
                 }
             }
             .padding(8)
