@@ -179,15 +179,19 @@ struct StoryView: View {
         HStack(spacing: 0) {
             Color.clear
                 .contentShape(Rectangle())
-                .onTapGesture {
-                    viewModel.goToPreviousItem()
-                }
-
+                .onTapGesture { viewModel.goToPreviousItem() }
+                .pauseOnLongPress(
+                    stopTimer: { viewModel.stopTimer() },
+                    startTimer: { viewModel.startTimer() }
+                )
+            
             Color.clear
                 .contentShape(Rectangle())
-                .onTapGesture {
-                    viewModel.goToNextItem()
-                }
+                .onTapGesture { viewModel.goToNextItem() }
+                .pauseOnLongPress(
+                    stopTimer: { viewModel.stopTimer() },
+                    startTimer: { viewModel.startTimer() }
+                )
         }
     }
 
