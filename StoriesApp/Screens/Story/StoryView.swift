@@ -10,6 +10,7 @@ import SwiftUI
 struct StoryView: View {
 
     @State private var viewModel: StoryViewModel
+    @State private var showShareAlert = false
 
     init(viewModel: StoryViewModel) {
         self._viewModel = State(initialValue: viewModel)
@@ -17,17 +18,21 @@ struct StoryView: View {
 
     var body: some View {
         GeometryReader { geo in
-            ZStack {
-                Color.black.ignoresSafeArea()
-
-                storyImage(width: geo.size.width, height: geo.size.height)
-
-                tapZones
-
-                VStack {
-                    header
-                    Spacer()
+            VStack(spacing: 12) {
+                ZStack {
+                    Color.black.ignoresSafeArea()
+                    storyImage(width: geo.size.width, height: geo.size.height * 0.90)
+                    tapZones
+                    VStack {
+                        header
+                        Spacer()
+                    }
                 }
+                .frame(height: geo.size.height * 0.90)
+
+                footer
+                    .frame(height: geo.size.height * 0.10)
+                    .background(Color.black)
             }
         }
         .onDisappear {
@@ -72,7 +77,7 @@ struct StoryView: View {
     }
 
     private var progressBars: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 2) {
             ForEach(0..<viewModel.currentStory.items.count, id: \.self) { index in
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
@@ -113,8 +118,54 @@ struct StoryView: View {
             viewModel.dismiss()
         } label: {
             Image(systemName: "xmark")
-                .font(.system(size: 20, weight: .regular))
+                .font(.system(size: 25, weight: .light))
                 .foregroundColor(.white)
+        }
+    }
+
+    private var footer: some View {
+        HStack(spacing: 16) {
+            messageTextfield
+            likeButton
+            shareButton
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 32)
+    }
+
+    private var messageTextfield: some View {
+        TextField("Send message...", text: .constant(""))
+            .disabled(true)
+            .foregroundColor(.white.opacity(0.8))
+            .font(.system(size: 15))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 24)
+                    .stroke(Color.white.opacity(0.5), lineWidth: 1)
+            )
+    }
+
+    private var likeButton: some View {
+        Button {
+            viewModel.toggleLikeCurrentItem()
+        } label: {
+            Image(systemName: viewModel.isCurrentItemLiked() ? "heart.fill" : "heart")
+                .font(.system(size: 28))
+                .foregroundColor(viewModel.isCurrentItemLiked() ? .red : .white)
+        }
+    }
+
+    private var shareButton: some View {
+        Button {
+            showShareAlert = true
+        } label: {
+            Image(systemName: "paperplane")
+                .font(.system(size: 24))
+                .foregroundColor(.white)
+        }
+        .alert("Feature coming soon", isPresented: $showShareAlert) {
+            Button("OK", role: .cancel) {}
         }
     }
 
