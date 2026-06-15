@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  StoryView.swift
 //  StoriesApp
 //
 //  Created by Pauline Nomballais on 15/06/2026.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct StoryView: View {
     var body: some View {
-        HomeView()
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ContentView()
+    StoryView()
 }
