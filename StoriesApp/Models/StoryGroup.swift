@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StoryGroup {
+struct StoryGroup: Codable {
     let user: User
     let items: [StoryItem]
 }
