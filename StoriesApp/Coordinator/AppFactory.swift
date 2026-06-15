@@ -14,11 +14,12 @@ final class AppFactory {
         HomeView(viewModel: HomeViewModel(service: StoryService(), router: router))
     }
 
-    func makeStoryView(stories: [StoryGroup], startIndex: Int, router: AppRouter) -> some View {
+    func makeStoryView(stories: [Story], startIndex: Int, router: AppRouter) -> some View {
         StoryView(
             viewModel: StoryViewModel(
                 router: router,
-                storyGroup: stories[startIndex]
+                stories: stories,
+                startIndex: startIndex
             )
         )
     }

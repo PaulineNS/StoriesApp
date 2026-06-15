@@ -8,11 +8,11 @@
 import Foundation
 
 protocol StoryServiceProtocol {
-    func fetchStories() throws -> [StoryGroup]
+    func fetchStories() throws -> [Story]
 }
 
 final class StoryService: StoryServiceProtocol {
-    func fetchStories() throws -> [StoryGroup] {
+    func fetchStories() throws -> [Story] {
         guard let url = Bundle.main.url(forResource: "stories", withExtension: "json") else {
             throw StoryError.fileNotFound
         }
@@ -24,7 +24,7 @@ final class StoryService: StoryServiceProtocol {
 }
 
 private struct StoriesResponse: Codable {
-    let stories: [StoryGroup]
+    let stories: [Story]
 }
 
 enum StoryError: Error {

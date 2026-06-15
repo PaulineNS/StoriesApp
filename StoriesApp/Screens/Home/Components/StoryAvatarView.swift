@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoryAvatarView: View {
 
-    let story: StoryGroup
+    let story: Story
 
     var body: some View {
         VStack(spacing: 6) {
@@ -70,7 +70,7 @@ struct StoryAvatarView: View {
 }
 
 #Preview {
-    StoryAvatarView(story: StoryGroup(
+    StoryAvatarView(story: Story(
         user: User(id: "user-1", name: "camillette", avatarURL: "https://randomuser.me/api/portraits/women/1.jpg", isCurrent: true),
         items: [
             StoryItem(imageURL: "https://picsum.photos/seed/camillette1/800/1400")

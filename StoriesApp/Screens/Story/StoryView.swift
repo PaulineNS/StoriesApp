@@ -22,11 +22,19 @@ struct StoryView: View {
 
                 storyImage(width: geo.size.width, height: geo.size.height)
 
+                tapZones
+
                 VStack {
                     header
                     Spacer()
                 }
             }
+        }
+        .onAppear {
+            viewModel.startTimer()
+        }
+        .onDisappear {
+            viewModel.stopTimer()
         }
     }
 
@@ -59,16 +67,25 @@ struct StoryView: View {
 
     private var progressBars: some View {
         HStack(spacing: 4) {
-            ForEach(0..<viewModel.currentStoryGroup.items.count, id: \.self) { _ in
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.white.opacity(0.5))
-                    .frame(height: 2)
+            ForEach(0..<viewModel.currentStory.items.count, id: \.self) { index in
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(Color.white.opacity(0.4))
+                            .frame(height: 2)
+
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(Color.white)
+                            .frame(width: viewModel.progressBarWidth(for: index, totalWidth: geo.size.width), height: 2)
+                    }
+                }
+                .frame(height: 2)
             }
         }
     }
 
     private var userAvatar: some View {
-        AsyncImage(url: URL(string: viewModel.currentStoryGroup.user.avatarURL)) { image in
+        AsyncImage(url: URL(string: viewModel.currentStory.user.avatarURL)) { image in
             image
                 .resizable()
                 .scaledToFill()
@@ -80,7 +97,7 @@ struct StoryView: View {
     }
 
     private var userLabel: some View {
-        Text(viewModel.currentStoryGroup.user.name)
+        Text(viewModel.currentStory.user.name)
             .font(.system(size: 14, weight: .semibold))
             .foregroundColor(.white)
     }
@@ -92,6 +109,22 @@ struct StoryView: View {
             Image(systemName: "xmark")
                 .font(.system(size: 20, weight: .regular))
                 .foregroundColor(.white)
+        }
+    }
+
+    private var tapZones: some View {
+        HStack(spacing: 0) {
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.goToPreviousItem()
+                }
+
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.goToNextItem()
+                }
         }
     }
 }
