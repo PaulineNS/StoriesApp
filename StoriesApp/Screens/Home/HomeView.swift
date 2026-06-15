@@ -11,7 +11,7 @@ struct HomeView: View {
 
     @State private var viewModel: HomeViewModel
 
-    init(viewModel: HomeViewModel = HomeViewModel()) {
+    init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
     }
 
@@ -31,6 +31,11 @@ struct HomeView: View {
             LazyHStack(spacing: 12) {
                 ForEach(viewModel.stories, id: \.user.id) { story in
                     StoryAvatarView(story: story)
+                        .onTapGesture {
+                            if let index = viewModel.index(of: story) {
+                                viewModel.selectStory(at: index)
+                            }
+                        }
                 }
             }
             .padding(8)
@@ -47,5 +52,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(viewModel: HomeViewModel(service: StoryServiceMock()))
+    let router = AppRouterImpl()
+    let factory = AppFactory()
+    return factory.makeHomeView(router: router)
 }

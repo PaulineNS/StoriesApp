@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct StoriesAppApp: App {
+
+    @State private var router = AppRouterImpl()
+    private let factory = AppFactory()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppRootView(factory: factory)
         }
     }
 }

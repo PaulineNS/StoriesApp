@@ -10,6 +10,8 @@ import Foundation
 
 final class StoryServiceMock: StoryServiceProtocol {
 
+    static let mockStories: [StoryGroup] = (try? StoryServiceMock().fetchStories()) ?? []
+
     func fetchStories() throws -> [StoryGroup] {
         return [
             StoryGroup(

@@ -13,9 +13,14 @@ final class HomeViewModel {
     private(set) var stories: [StoryGroup] = []
 
     private let service: StoryServiceProtocol
+    private let router: AppRouter
 
-    init(service: StoryServiceProtocol = StoryService()) {
+    init(
+        service: StoryServiceProtocol = StoryService(),
+        router: AppRouter
+    ) {
         self.service = service
+        self.router = router
     }
 
     @MainActor
@@ -25,5 +30,13 @@ final class HomeViewModel {
         } catch {
             print("Failed to load stories: \(error)")
         }
+    }
+
+    func selectStory(at index: Int) {
+        router.present(sheet: .story(stories: stories, startIndex: index))
+    }
+
+    func index(of story: StoryGroup) -> Int? {
+        stories.firstIndex(where: { $0.user.id == story.user.id })
     }
 }
