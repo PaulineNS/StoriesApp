@@ -10,6 +10,7 @@ import SwiftUI
 struct StoryAvatarView: View {
 
     let story: Story
+    var isSeen: Bool = false
 
     var body: some View {
         VStack(spacing: 6) {
@@ -21,7 +22,7 @@ struct StoryAvatarView: View {
             }
             label
         }
-        .frame(width: 72)
+        .frame(width: 90)
     }
 
     private var avatarImage: some View {
@@ -32,16 +33,12 @@ struct StoryAvatarView: View {
         } placeholder: {
             Color(.systemGray6)
         }
-        .frame(width: 66, height: 66)
+        .frame(width: 80, height: 80)
         .clipShape(Circle())
         .padding(5)
         .overlay(
             Circle()
-                .stroke(LinearGradient(
-                    colors: [.yellow, .orange, .pink, .purple],
-                    startPoint: .bottomLeading,
-                    endPoint: .topTrailing
-                ), lineWidth: 3.5)
+                .stroke(ringStyle, lineWidth: 3.5)
                 .opacity(story.items.isEmpty ? 0 : 1)
         )
     }
@@ -66,6 +63,18 @@ struct StoryAvatarView: View {
             .font(.system(size: 12))
             .lineLimit(1)
             .foregroundColor(.primary)
+    }
+
+    private var ringStyle: AnyShapeStyle {
+        if isSeen {
+            return AnyShapeStyle(Color(.systemGray6))
+        } else {
+            return AnyShapeStyle(LinearGradient(
+                colors: [.yellow, .orange, .pink, .purple],
+                startPoint: .bottomLeading,
+                endPoint: .topTrailing
+            ))
+        }
     }
 }
 

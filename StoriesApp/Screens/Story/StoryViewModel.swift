@@ -15,6 +15,7 @@ final class StoryViewModel {
     private(set) var currentItemProgress: CGFloat = 0
 
     private let router: AppRouter
+    private let persistence: StoryPersistence
     private var timer: Timer?
     private var stories: [Story]
     private var currentStoryIndex: Int
@@ -24,13 +25,16 @@ final class StoryViewModel {
 
     init(
         router: AppRouter,
+        persistence: StoryPersistence,
         stories: [Story],
         startIndex: Int
     ) {
         self.router = router
+        self.persistence = persistence
         self.stories = stories
         self.currentStoryIndex = startIndex
         self.currentStory = stories[startIndex]
+        self.currentItemIndex = firstUnseenItemIndex(in: stories[startIndex])
     }
 
     var currentStoryItem: StoryItem {
@@ -39,6 +43,7 @@ final class StoryViewModel {
 
     func startTimer() {
         stopTimer()
+        markCurrentItemAsSeen()
         timer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.updateProgress()
@@ -66,27 +71,33 @@ final class StoryViewModel {
         currentItemProgress += increment
         if currentItemProgress >= 1.0 {
             currentItemProgress = 0
+            goToNextItem()
         }
     }
 
     func goToNextItem() {
         if currentItemIndex < currentStory.items.count - 1 {
+            stopTimer()
             currentItemIndex += 1
             currentItemProgress = 0
+            markCurrentItemAsSeen()
         } else {
             goToNextStory()
         }
     }
 
     func goToPreviousItem() {
+        stopTimer()
         if currentItemIndex > 0 {
             currentItemIndex -= 1
         }
         currentItemProgress = 0
+        markCurrentItemAsSeen()
     }
 
     private func goToNextStory() {
         if currentStoryIndex < stories.count - 1 {
+            stopTimer()
             currentStoryIndex += 1
             currentStory = stories[currentStoryIndex]
             currentItemIndex = 0
@@ -94,6 +105,30 @@ final class StoryViewModel {
         } else {
             dismiss()
         }
+    }
+
+    private func firstUnseenItemIndex(in story: Story) -> Int {
+        story.items.firstIndex(where: {
+            !persistence.state.seenItemIds.contains($0.imageURL)
+        }) ?? 0
+    }
+
+    func markCurrentItemAsSeen() {
+        persistence.state.seenItemIds.insert(currentStoryItem.imageURL)
+        persistence.service.save(persistence.state)
+    }
+
+    func toggleLikeCurrentItem() {
+        if persistence.state.likedItemIds.contains(currentStoryItem.imageURL) {
+            persistence.state.likedItemIds.remove(currentStoryItem.imageURL)
+        } else {
+            persistence.state.likedItemIds.insert(currentStoryItem.imageURL)
+        }
+        persistence.service.save(persistence.state)
+    }
+
+    func isCurrentItemLiked() -> Bool {
+        persistence.state.likedItemIds.contains(currentStoryItem.imageURL)
     }
 
     func dismiss() {

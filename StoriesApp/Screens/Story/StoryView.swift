@@ -30,22 +30,28 @@ struct StoryView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.startTimer()
-        }
         .onDisappear {
             viewModel.stopTimer()
         }
     }
 
     private func storyImage(width: CGFloat, height: CGFloat) -> some View {
-        AsyncImage(url: URL(string: viewModel.currentStoryItem.imageURL)) { image in
-            image
-                .resizable()
-                .scaledToFill()
-        } placeholder: {
-            Color(.systemGray6)
+        AsyncImage(url: URL(string: viewModel.currentStoryItem.imageURL)) { response in
+            switch response {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .onAppear {
+                        viewModel.startTimer()
+                    }
+            case .empty, .failure:
+                Color(.systemGray6)
+            @unknown default:
+                Color(.systemGray6)
+            }
         }
+        .id(viewModel.currentStoryItem.imageURL)
         .frame(width: width, height: height)
         .clipped()
         .clipShape(RoundedRectangle(cornerRadius: 12))

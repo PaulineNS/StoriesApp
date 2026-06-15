@@ -10,14 +10,27 @@ import SwiftUI
 @MainActor
 final class AppFactory {
 
+    private let persistence = StoryPersistence()
+
     func makeHomeView(router: AppRouter) -> some View {
-        HomeView(viewModel: HomeViewModel(service: StoryService(), router: router))
+        HomeView(
+            viewModel: HomeViewModel(
+                service: StoryService(),
+                persistence: persistence,
+                router: router
+            )
+        )
     }
 
-    func makeStoryView(stories: [Story], startIndex: Int, router: AppRouter) -> some View {
+    func makeStoryView(
+        stories: [Story],
+        startIndex: Int,
+        router: AppRouter
+    ) -> some View {
         StoryView(
             viewModel: StoryViewModel(
                 router: router,
+                persistence: persistence,
                 stories: stories,
                 startIndex: startIndex
             )

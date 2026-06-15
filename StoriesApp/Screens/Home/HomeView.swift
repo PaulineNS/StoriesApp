@@ -30,12 +30,15 @@ struct HomeView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 ForEach(viewModel.stories, id: \.user.id) { story in
-                    StoryAvatarView(story: story)
-                        .onTapGesture {
-                            if let index = viewModel.index(of: story) {
-                                viewModel.selectStory(at: index)
-                            }
+                    StoryAvatarView(
+                        story: story,
+                        isSeen: viewModel.isStorySeen(story)
+                    )
+                    .onTapGesture {
+                        if let index = viewModel.index(of: story) {
+                            viewModel.selectStory(at: index)
                         }
+                    }
                 }
             }
             .padding(8)
