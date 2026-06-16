@@ -40,6 +40,8 @@ struct HomeView: View {
                         story: story,
                         isSeen: viewModel.isStorySeen(story)
                     )
+                    .accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("story_avatar_\(story.user.id)")
                     .onTapGesture {
                         if let index = viewModel.index(of: story) {
                             viewModel.selectStory(at: index)

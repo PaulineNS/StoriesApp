@@ -9,9 +9,13 @@ import Foundation
 
 final class PersistenceServiceImpl: PersistenceService {
 
-    private let defaults = UserDefaults.standard
+    private let defaults: UserDefaults
     private let seenKey = "seen_story_items"
     private let likedKey = "liked_story_items"
+
+    init(suiteName: String? = nil) {
+        self.defaults = UserDefaults(suiteName: suiteName) ?? .standard
+    }
 
     func loadState() -> PersistenceState {
         let state = PersistenceState()

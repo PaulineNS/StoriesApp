@@ -36,6 +36,7 @@ struct StoryView: View {
                     .frame(height: geo.size.height * 0.10)
                     .background(Color.black)
             }
+            .background(Color.black)
             .offset(y: dragOffset)
             .gesture(dragGesture)
         }
@@ -55,9 +56,9 @@ struct StoryView: View {
                         viewModel.startTimer()
                     }
             case .empty, .failure:
-                Color(.systemGray6)
+                Color(.black)
             @unknown default:
-                Color(.systemGray6)
+                Color(.black)
             }
         }
         .frame(width: width, height: height)
@@ -127,6 +128,7 @@ struct StoryView: View {
                 .font(.system(size: 25, weight: .light))
                 .foregroundColor(.white)
         }
+        .accessibilityIdentifier("dismiss_button")
     }
 
     private var footer: some View {
@@ -160,6 +162,7 @@ struct StoryView: View {
                 .font(.system(size: 28))
                 .foregroundColor(viewModel.isCurrentItemLiked() ? .red : .white)
         }
+        .accessibilityIdentifier("like_button")
     }
 
     private var shareButton: some View {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppSheetDestination: Identifiable {
+enum AppSheetDestination: Identifiable, Equatable {
     case story(startIndex: Int)
 
     var id: String { "story" }
