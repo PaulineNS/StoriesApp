@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct StoriesAppApp: App {
+struct StoriesApp: App {
 
     @State private var router = AppRouterImpl()
     private let factory = AppFactory()

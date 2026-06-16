@@ -93,8 +93,7 @@ final class StoryViewModel {
             currentItemProgress = 0
             markCurrentItemAsSeen()
         } else {
-            currentItemProgress = 0
-            startTimer()
+            navigateToStory(direction: .previous)
         }
     }
 
@@ -107,7 +106,12 @@ final class StoryViewModel {
             }
             currentStoryIndex += 1
         case .previous:
-            guard currentStoryIndex > 0 else { return }
+            guard currentStoryIndex > 0 else {
+                currentItemIndex = 0
+                currentItemProgress = 0
+                startTimer()
+                return
+            }
             currentStoryIndex -= 1
         }
         stopTimer()
