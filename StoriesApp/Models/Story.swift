@@ -8,6 +8,7 @@
 import Foundation
 
 struct Story: Codable {
+    let id: String
     let user: User
     let items: [StoryItem]
 }

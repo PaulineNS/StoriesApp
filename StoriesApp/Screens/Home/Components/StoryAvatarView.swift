@@ -84,10 +84,18 @@ struct StoryAvatarView: View {
 }
 
 #Preview {
-    StoryAvatarView(story: Story(
-        user: User(id: "user-1", name: "camillette", avatarURL: "https://randomuser.me/api/portraits/women/1.jpg", isCurrent: true),
-        items: [
-            StoryItem(imageURL: "https://picsum.photos/seed/camillette1/800/1400")
-        ]
-    ))
+    StoryAvatarView(
+        story: Story(
+            id: "story-1",
+            user: User(
+                id: "user-1",
+                name: "camillette",
+                avatarURL: "https://randomuser.me/api/portraits/women/1.jpg",
+                isCurrent: true
+            ),
+            items: [
+                StoryItem(imageURL: "https://picsum.photos/seed/camillette1/800/1400")
+            ]
+        )
+    )
 }

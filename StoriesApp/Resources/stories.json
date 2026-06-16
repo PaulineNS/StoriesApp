@@ -1,6 +1,7 @@
 {
     "stories": [
         {
+            "id": "story-0",
             "user": {
                 "id": "user-0",
                 "name": "paulineNomballais",
@@ -10,10 +11,11 @@
             "items": [
                 { "image_url": "https://picsum.photos/seed/paulineNomballais2/800/1400" },
                 { "image_url": "https://picsum.photos/seed/paulineNomballais7/800/1400" },
-                { "image_url": "https://picsum.photos/seed/paulineNomballais1/800/1400" },
+                { "image_url": "https://picsum.photos/seed/paulineNomballais1/800/1400" }
             ]
         },
         {
+            "id": "story-1",
             "user": {
                 "id": "user-1",
                 "name": "camillette",
@@ -27,6 +29,7 @@
             ]
         },
         {
+            "id": "story-2",
             "user": {
                 "id": "user-2",
                 "name": "lucas_off",
@@ -40,6 +43,7 @@
             ]
         },
         {
+            "id": "story-3",
             "user": {
                 "id": "user-3",
                 "name": "manonmns",
@@ -53,6 +57,7 @@
             ]
         },
         {
+            "id": "story-4",
             "user": {
                 "id": "user-4",
                 "name": "theofts",
@@ -66,6 +71,7 @@
             ]
         },
         {
+            "id": "story-5",
             "user": {
                 "id": "user-5",
                 "name": "leapls",
@@ -79,6 +85,7 @@
             ]
         },
         {
+            "id": "story-6",
             "user": {
                 "id": "user-6",
                 "name": "hugoooo",
@@ -92,6 +99,7 @@
             ]
         },
         {
+            "id": "story-7",
             "user": {
                 "id": "user-7",
                 "name": "chloeline",
@@ -105,6 +113,7 @@
             ]
         },
         {
+            "id": "story-8",
             "user": {
                 "id": "user-8",
                 "name": "nathaniel_",
@@ -118,6 +127,7 @@
             ]
         },
         {
+            "id": "story-9",
             "user": {
                 "id": "user-9",
                 "name": "emmaalice",
@@ -131,6 +141,7 @@
             ]
         },
         {
+            "id": "story-10",
             "user": {
                 "id": "user-10",
                 "name": "romainrmn",
@@ -144,6 +155,7 @@
             ]
         },
         {
+            "id": "story-11",
             "user": {
                 "id": "user-11",
                 "name": "jadejdd",
@@ -157,6 +169,7 @@
             ]
         },
         {
+            "id": "story-12",
             "user": {
                 "id": "user-12",
                 "name": "maximemx",
@@ -170,6 +183,7 @@
             ]
         },
         {
+            "id": "story-13",
             "user": {
                 "id": "user-13",
                 "name": "lisalisaa",
@@ -183,6 +197,7 @@
             ]
         },
         {
+            "id": "story-14",
             "user": {
                 "id": "user-14",
                 "name": "antoinettt",
@@ -196,6 +211,7 @@
             ]
         },
         {
+            "id": "story-15",
             "user": {
                 "id": "user-15",
                 "name": "sarahsrs",
@@ -209,6 +225,7 @@
             ]
         },
         {
+            "id": "story-16",
             "user": {
                 "id": "user-16",
                 "name": "thomasthms",
@@ -222,6 +239,7 @@
             ]
         },
         {
+            "id": "story-17",
             "user": {
                 "id": "user-17",
                 "name": "lucielucie",
@@ -235,6 +253,7 @@
             ]
         },
         {
+            "id": "story-18",
             "user": {
                 "id": "user-18",
                 "name": "clementoff",
@@ -248,6 +267,7 @@
             ]
         },
         {
+            "id": "story-19",
             "user": {
                 "id": "user-19",
                 "name": "paulinepln",
@@ -261,6 +281,7 @@
             ]
         },
         {
+            "id": "story-20",
             "user": {
                 "id": "user-20",
                 "name": "baptistebpt",

@@ -76,7 +76,7 @@ struct HomeView: View {
     private var storiesList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
-                ForEach(viewModel.appState.stories, id: \.user.id) { story in
+                ForEach(viewModel.appState.stories, id: \.id) { story in
                     StoryAvatarView(
                         story: story,
                         isSeen: viewModel.isStorySeen(story)

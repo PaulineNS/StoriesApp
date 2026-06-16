@@ -75,6 +75,7 @@ final class HomeViewModel {
                 .filter { !$0.user.isCurrent }
                 .map { story in
                     Story(
+                        id: "\(story.id)-page\(appState.currentPage)",
                         user: User(
                             id: "\(story.user.id)-page\(appState.currentPage)",
                             name: story.user.name,

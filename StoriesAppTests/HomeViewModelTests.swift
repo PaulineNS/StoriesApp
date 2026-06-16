@@ -116,7 +116,13 @@ final class HomeViewModelTests: XCTestCase {
     func testIndexOfStory_whenNotFound_shouldReturnNil() {
         appState.stories = StoryServiceMock.mockStories
         let unknownStory = Story(
-            user: User(id: "unknown", name: "unknown", avatarURL: "", isCurrent: false),
+            id: "unknown",
+            user: User(
+                id: "unknown",
+                name: "unknown",
+                avatarURL: "",
+                isCurrent: false
+            ),
             items: []
         )
         XCTAssertNil(viewModel.index(of: unknownStory))
