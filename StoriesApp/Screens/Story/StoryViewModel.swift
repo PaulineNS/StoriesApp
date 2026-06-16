@@ -129,7 +129,7 @@ final class StoryViewModel {
 
     func markCurrentItemAsSeen() {
         persistence.state.seenItemIds.insert(currentStoryItem.imageURL)
-        persistence.service.save(persistence.state)
+        persistence.save()
     }
 
     func toggleLikeCurrentItem() {
@@ -138,7 +138,7 @@ final class StoryViewModel {
         } else {
             persistence.state.likedItemIds.insert(currentStoryItem.imageURL)
         }
-        persistence.service.save(persistence.state)
+        persistence.save()
     }
 
     func isCurrentItemLiked() -> Bool {

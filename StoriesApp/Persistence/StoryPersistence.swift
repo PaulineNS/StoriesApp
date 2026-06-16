@@ -10,10 +10,14 @@ import Foundation
 final class StoryPersistence {
 
     let state: PersistenceState
-    let service: PersistenceService
+    private let service: PersistenceService
 
     init(service: PersistenceService = PersistenceServiceImpl()) {
         self.service = service
         self.state = service.loadState()
+    }
+
+    func save() {
+        service.save(state)
     }
 }
