@@ -15,7 +15,6 @@ enum StoriesColor {
         static let gradientMiddle1 = Color.orange
         static let gradientMiddle2 = Color.pink
         static let gradientEnd = Color.purple
-        static let seen = Color(.separator)
     }
 
     // MARK: - Home
@@ -45,9 +44,7 @@ enum StoriesColor {
 
     // MARK: - Avatar
     enum Avatar {
-        static let plusButtonBackground = Color(.systemBackground)
         static let plusButtonForeground = Color(.label)
-        static let placeholder = Color(.systemGray6)
         static let labelText = Color.primary
     }
 }

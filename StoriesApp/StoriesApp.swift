@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct StoriesApp: App {
 
-    @State private var router = AppRouterImpl()
     private let factory = AppFactory()
 
     init() {

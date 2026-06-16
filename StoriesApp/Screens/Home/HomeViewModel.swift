@@ -28,6 +28,8 @@ final class HomeViewModel {
         self.appState = appState
     }
 
+    var stories: [Story] { appState.stories }
+
     var showErrorAlert: Bool {
         get { appState.showErrorAlert }
         set { appState.showErrorAlert = newValue }
@@ -51,7 +53,7 @@ final class HomeViewModel {
     }
 
     func index(of story: Story) -> Int? {
-        appState.stories.firstIndex(where: { $0.user.id == story.user.id })
+        appState.stories.firstIndex(where: { $0.id == story.id })
     }
 
     func isStorySeen(_ story: Story) -> Bool {
@@ -59,7 +61,7 @@ final class HomeViewModel {
     }
 
     func loadMoreStoriesIfNeeded(currentStory: Story) {
-        guard let index = appState.stories.firstIndex(where: { $0.user.id == currentStory.user.id }) else { return }
+        guard let index = appState.stories.firstIndex(where: { $0.id == currentStory.id }) else { return }
         if index >= appState.stories.count - 5 {
             loadMoreStories()
         }
@@ -71,22 +73,7 @@ final class HomeViewModel {
         do {
             let baseStories = try service.fetchStories()
             appState.currentPage += 1
-            let newStories = baseStories
-                .filter { !$0.user.isCurrent }
-                .map { story in
-                    Story(
-                        id: "\(story.id)-page\(appState.currentPage)",
-                        user: User(
-                            id: "\(story.user.id)-page\(appState.currentPage)",
-                            name: story.user.name,
-                            avatarURL: story.user.avatarURL,
-                            isCurrent: false
-                        ),
-                        items: story.items.map { item in
-                            StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
-                        }
-                    )
-                }
+            let newStories = makeNewStories(from: baseStories)
             appState.stories.append(contentsOf: newStories)
         } catch let error as StoryError {
             appState.error = error
@@ -96,5 +83,24 @@ final class HomeViewModel {
             appState.showErrorAlert = true
         }
         appState.isLoadingMorePage = false
+    }
+
+    private func makeNewStories(from baseStories: [Story]) -> [Story] {
+        baseStories
+            .filter { !$0.user.isCurrent }
+            .map { story in
+                Story(
+                    id: "\(story.id)-page\(appState.currentPage)",
+                    user: User(
+                        id: "\(story.user.id)-page\(appState.currentPage)",
+                        name: story.user.name,
+                        avatarURL: story.user.avatarURL,
+                        isCurrent: false
+                    ),
+                    items: story.items.map { item in
+                        StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
+                    }
+                )
+            }
     }
 }

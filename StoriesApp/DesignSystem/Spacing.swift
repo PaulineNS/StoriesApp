@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Spacing: CGFloat, CaseIterable {
+enum Spacing: CGFloat, CaseIterable {
 
     /// A Spacing of 0px
     case space0 = 0

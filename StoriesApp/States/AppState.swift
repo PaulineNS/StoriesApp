@@ -11,8 +11,8 @@ import Foundation
 final class AppState {
     var stories: [Story] = []
     var currentPage: Int = 0
-    var isLoadingMorePage: Bool = false
-    var shouldLoadMorePage: Bool = false
-    var error: StoryError? = nil
-    var showErrorAlert: Bool = false
+    var isLoadingMorePage = false
+    var shouldLoadMorePage = false
+    var error: StoryError?
+    var showErrorAlert = false
 }

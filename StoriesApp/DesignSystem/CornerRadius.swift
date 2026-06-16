@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CornerRadius {
+enum CornerRadius {
 
     /// Value is 2px
     case xxs

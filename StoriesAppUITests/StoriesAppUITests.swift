@@ -31,6 +31,7 @@ final class StoriesAppUITests: XCTestCase {
 
     func testTapOnAvatar_shouldOpenStoryViewer() {
         let firstAvatar = app.staticTexts["story_avatar_user-1"]
+        XCTAssertTrue(firstAvatar.waitForExistence(timeout: 5))
         firstAvatar.tap()
 
         let dismissButton = app.buttons["dismiss_button"]

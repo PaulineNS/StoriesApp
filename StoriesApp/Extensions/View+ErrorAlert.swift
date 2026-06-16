@@ -1,5 +1,5 @@
 //
-//  View+errorAlert.swift
+//  View+ErrorAlert.swift
 //  StoriesApp
 //
 //  Created by Pauline Nomballais on 16/06/2026.

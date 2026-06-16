@@ -14,6 +14,11 @@ struct StoryView: View {
     @State private var dragOffset: CGFloat = 0
     @State private var slideDirection: Edge = .trailing
 
+    private let storyImageHeightRatio: CGFloat = 0.90
+    private let footerHeightRatio: CGFloat = 0.10
+    private let swipeThreshold: CGFloat = 150
+    private let horizontalSwipeThreshold: CGFloat = 50
+
     init(viewModel: StoryViewModel) {
         self._viewModel = State(initialValue: viewModel)
     }
@@ -23,17 +28,17 @@ struct StoryView: View {
             VStack(spacing: 12) {
                 ZStack {
                     StoriesColor.Story.background.ignoresSafeArea()
-                    storyImage(width: geo.size.width, height: geo.size.height * 0.90)
+                    storyImage(width: geo.size.width, height: geo.size.height * storyImageHeightRatio)
                     tapZones
                     VStack {
                         header
                         Spacer()
                     }
                 }
-                .frame(height: geo.size.height * 0.90)
+                .frame(height: geo.size.height * storyImageHeightRatio)
 
                 footer
-                    .frame(height: geo.size.height * 0.10)
+                    .frame(height: geo.size.height * footerHeightRatio)
                     .background(StoriesColor.Story.background)
             }
             .background(StoriesColor.Story.background)
@@ -164,9 +169,9 @@ struct StoryView: View {
         Button {
             viewModel.toggleLikeCurrentItem()
         } label: {
-            Image(systemName: viewModel.isCurrentItemLiked() ? "heart.fill" : "heart")
+            Image(systemName: viewModel.isCurrentItemLiked ? "heart.fill" : "heart")
                 .font(.system(size: 28))
-                .foregroundColor(viewModel.isCurrentItemLiked() ? StoriesColor.Story.like : StoriesColor.Story.progressFill)
+                .foregroundColor(viewModel.isCurrentItemLiked ? StoriesColor.Story.like : StoriesColor.Story.progressFill)
         }
         .accessibilityIdentifier("like_button")
     }
@@ -191,7 +196,7 @@ struct StoryView: View {
                     stopTimer: { viewModel.stopTimer() },
                     startTimer: { viewModel.startTimer() }
                 )
-            
+
             StoriesColor.Story.tapZone
                 .contentShape(Rectangle())
                 .onTapGesture { viewModel.goToNextItem() }
@@ -214,14 +219,14 @@ struct StoryView: View {
                 let vertical = value.translation.height
 
                 if abs(horizontal) > abs(vertical) {
-                    if horizontal < -50 {
+                    if horizontal < -horizontalSwipeThreshold {
                         slideDirection = .trailing
                         viewModel.navigateToStory(direction: .next)
-                    } else if horizontal > 50 {
+                    } else if horizontal > horizontalSwipeThreshold {
                         slideDirection = .leading
                         viewModel.navigateToStory(direction: .previous)
                     }
-                } else if vertical > 150 {
+                } else if vertical > swipeThreshold {
                     viewModel.dismiss()
                 } else {
                     withAnimation(.spring()) {

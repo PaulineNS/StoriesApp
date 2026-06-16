@@ -10,5 +10,10 @@ import Foundation
 enum AppSheetDestination: Identifiable, Equatable {
     case story(startIndex: Int)
 
-    var id: String { "story" }
+    var id: String {
+        switch self {
+        case .story(let startIndex): 
+            return "story-\(startIndex)"
+        }
+    }
 }

@@ -66,13 +66,13 @@ final class StoryViewModelTests: XCTestCase {
 
     func testToggleLike_shouldAddLike() {
         viewModel.toggleLikeCurrentItem()
-        XCTAssertTrue(viewModel.isCurrentItemLiked())
+        XCTAssertTrue(viewModel.isCurrentItemLiked)
     }
 
     func testToggleLike_whenAlreadyLiked_shouldRemoveLike() {
         viewModel.toggleLikeCurrentItem()
         viewModel.toggleLikeCurrentItem()
-        XCTAssertFalse(viewModel.isCurrentItemLiked())
+        XCTAssertFalse(viewModel.isCurrentItemLiked)
     }
 
     func testDismiss_shouldCallRouter() {

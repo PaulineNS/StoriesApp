@@ -20,8 +20,8 @@ final class StoryViewModel {
     private let appState: AppState
     private var timer: Timer?
 
-    private let storyItemDuration: CGFloat = 5.0
-    private let timerInterval: CGFloat = 0.05
+    private static let storyItemDuration: CGFloat = 5.0
+    private static let timerInterval: CGFloat = 0.05
 
     init(
         router: AppRouter,
@@ -41,10 +41,14 @@ final class StoryViewModel {
         currentStory.items[currentItemIndex]
     }
 
+    var isCurrentItemLiked: Bool {
+        persistence.state.likedItemIds.contains(currentStoryItem.imageURL)
+    }
+
     func startTimer() {
         stopTimer()
         markCurrentItemAsSeen()
-        timer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: Self.timerInterval, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.updateProgress()
             }
@@ -67,7 +71,7 @@ final class StoryViewModel {
     }
 
     private func updateProgress() {
-        let increment = timerInterval / storyItemDuration
+        let increment = Self.timerInterval / Self.storyItemDuration
         currentItemProgress += increment
         if currentItemProgress >= 1.0 {
             currentItemProgress = 0
@@ -139,10 +143,6 @@ final class StoryViewModel {
             persistence.state.likedItemIds.insert(currentStoryItem.imageURL)
         }
         persistence.save()
-    }
-
-    func isCurrentItemLiked() -> Bool {
-        persistence.state.likedItemIds.contains(currentStoryItem.imageURL)
     }
 
     func dismiss() {
