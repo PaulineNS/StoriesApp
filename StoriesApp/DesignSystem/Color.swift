@@ -18,6 +18,12 @@ enum StoriesColor {
         static let seen = Color(.separator)
     }
 
+    // MARK: - Home
+    enum Home {
+        static let headerIcon = Color.primary
+        static let headerTitle = Color.primary
+    }
+
     // MARK: - Story
     enum Story {
         static let like = Color.red

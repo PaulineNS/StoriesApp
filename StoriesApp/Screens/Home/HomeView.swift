@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
 
     @State private var viewModel: HomeViewModel
+    @State private var showAddStoryAlert = false
+    @State private var showNotificationsAlert = false
 
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -17,6 +19,7 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
+            homeHeader
             storiesList
             homeFeed
         }
@@ -37,6 +40,37 @@ struct HomeView: View {
                 viewModel.loadStories()
             }
         )
+    }
+
+    private var homeHeader: some View {
+        HStack {
+            Button {
+                showAddStoryAlert = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 22, weight: .light))
+                    .foregroundColor(StoriesColor.Home.headerIcon)
+            }
+            .featureComingSoonAlert(isPresented: $showAddStoryAlert)
+
+            Spacer()
+
+            Text("StoriesApp")
+                .font(.system(size: 22, weight: .semibold))
+
+            Spacer()
+
+            Button {
+                showNotificationsAlert = true
+            } label: {
+                Image(systemName: "heart")
+                    .font(.system(size: 22, weight: .light))
+                    .foregroundColor(StoriesColor.Home.headerIcon)
+            }
+            .featureComingSoonAlert(isPresented: $showNotificationsAlert)
+        }
+        .padding(.horizontal, .space2w)
+        .padding(.vertical, .space1w)
     }
 
     private var storiesList: some View {

@@ -179,9 +179,7 @@ struct StoryView: View {
                 .font(.system(size: 24))
                 .foregroundColor(StoriesColor.Story.icon)
         }
-        .alert("Feature coming soon", isPresented: $showShareAlert) {
-            Button("OK", role: .cancel) {}
-        }
+        .featureComingSoonAlert(isPresented: $showShareAlert)
     }
 
     private var tapZones: some View {
