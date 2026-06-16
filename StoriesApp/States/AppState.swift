@@ -13,4 +13,6 @@ final class AppState {
     var currentPage: Int = 0
     var isLoadingMorePage: Bool = false
     var shouldLoadMorePage: Bool = false
+    var error: StoryError? = nil
+    var showErrorAlert: Bool = false
 }

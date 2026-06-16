@@ -57,8 +57,14 @@ struct StoryView: View {
                     }
             case .empty, .failure:
                 Color(.black)
+                    .onAppear {
+                        viewModel.startTimer()
+                    }
             @unknown default:
                 Color(.black)
+                    .onAppear {
+                        viewModel.startTimer()
+                    }
             }
         }
         .frame(width: width, height: height)

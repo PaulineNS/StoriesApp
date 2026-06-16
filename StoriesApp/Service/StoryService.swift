@@ -26,7 +26,3 @@ final class StoryService: StoryServiceProtocol {
 private struct StoriesResponse: Codable {
     let stories: [Story]
 }
-
-enum StoryError: Error {
-    case fileNotFound
-}

@@ -28,12 +28,21 @@ final class HomeViewModel {
         self.appState = appState
     }
 
+    var showErrorAlert: Bool {
+        get { appState.showErrorAlert }
+        set { appState.showErrorAlert = newValue }
+    }
+
     @MainActor
     func loadStories() {
         do {
             appState.stories = try service.fetchStories()
+        } catch let error as StoryError {
+            appState.error = error
+            appState.showErrorAlert = true
         } catch {
-            print("Failed to load stories: \(error)")
+            appState.error = .unknown
+            appState.showErrorAlert = true
         }
     }
 
@@ -58,25 +67,33 @@ final class HomeViewModel {
 
     func loadMoreStories() {
         guard !appState.isLoadingMorePage else { return }
-        guard let baseStories = try? service.fetchStories() else { return }
         appState.isLoadingMorePage = true
-        appState.currentPage += 1
-        let newStories = baseStories
-            .filter { !$0.user.isCurrent }
-            .map { story in
-                Story(
-                    user: User(
-                        id: "\(story.user.id)-page\(appState.currentPage)",
-                        name: story.user.name,
-                        avatarURL: story.user.avatarURL,
-                        isCurrent: false
-                    ),
-                    items: story.items.map { item in
-                        StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
-                    }
-                )
-            }
-        appState.stories.append(contentsOf: newStories)
+        do {
+            let baseStories = try service.fetchStories()
+            appState.currentPage += 1
+            let newStories = baseStories
+                .filter { !$0.user.isCurrent }
+                .map { story in
+                    Story(
+                        user: User(
+                            id: "\(story.user.id)-page\(appState.currentPage)",
+                            name: story.user.name,
+                            avatarURL: story.user.avatarURL,
+                            isCurrent: false
+                        ),
+                        items: story.items.map { item in
+                            StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
+                        }
+                    )
+                }
+            appState.stories.append(contentsOf: newStories)
+        } catch let error as StoryError {
+            appState.error = error
+            appState.showErrorAlert = true
+        } catch {
+            appState.error = .unknown
+            appState.showErrorAlert = true
+        }
         appState.isLoadingMorePage = false
     }
 }

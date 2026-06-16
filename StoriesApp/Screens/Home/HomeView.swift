@@ -30,6 +30,13 @@ struct HomeView: View {
                 viewModel.appState.shouldLoadMorePage = false
             }
         }
+        .errorAlert(
+            isPresented: $viewModel.showErrorAlert,
+            error: viewModel.appState.error,
+            onRetry: {
+                viewModel.loadStories()
+            }
+        )
     }
 
     private var storiesList: some View {
