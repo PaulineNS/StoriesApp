@@ -16,8 +16,8 @@ struct SkeletonPostView: View {
             description
 
         }
-        .padding(.vertical, 12)
-        .foregroundColor(Color(.systemGray6))
+        .padding(.vertical, .space3v)
+        .foregroundColor(StoriesColor.Feed.skeleton)
     }
 
     private var avatarNameHeader: some View {
@@ -25,30 +25,30 @@ struct SkeletonPostView: View {
             Circle()
                 .frame(width: 36, height: 36)
 
-            RoundedRectangle(cornerRadius: 4)
+            RoundedRectangle(cornerRadius: CornerRadius.xs.value)
                 .frame(width: 120, height: 12)
 
             Spacer()
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, .space3v)
     }
 
     private var image: some View {
-        RoundedRectangle(cornerRadius: 0)
+        Rectangle()
             .frame(maxWidth: .infinity)
             .frame(height: 500)
     }
 
     private var description: some View {
         VStack(alignment: .leading, spacing: 12) {
-            RoundedRectangle(cornerRadius: 4)
+            RoundedRectangle(cornerRadius: CornerRadius.xs.value)
                 .frame(maxWidth: .infinity)
                 .frame(height: 12)
 
-            RoundedRectangle(cornerRadius: 4)
+            RoundedRectangle(cornerRadius: CornerRadius.xs.value)
                 .frame(width: 200, height: 12)
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, .space3v)
     }
 }
 

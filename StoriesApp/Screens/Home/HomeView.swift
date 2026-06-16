@@ -20,7 +20,7 @@ struct HomeView: View {
             storiesList
             homeFeed
         }
-        .background(Color(.systemBackground))
+        .background(StoriesColor.Feed.background)
         .onAppear {
             viewModel.loadStories()
         }
@@ -59,7 +59,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding(8)
+            .padding(.space1w)
         }
     }
 

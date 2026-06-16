@@ -31,11 +31,11 @@ struct StoryAvatarView: View {
                 .resizable()
                 .scaledToFill()
         } placeholder: {
-            Color(.systemGray6)
+            StoriesColor.Feed.skeleton
         }
         .frame(width: 80, height: 80)
         .clipShape(Circle())
-        .padding(5)
+        .padding(.space1v)
         .overlay(
             Circle()
                 .stroke(ringStyle, lineWidth: 3.5)
@@ -46,14 +46,14 @@ struct StoryAvatarView: View {
     private var plusButton: some View {
         ZStack {
             Circle()
-                .foregroundColor(Color(.systemBackground))
+                .foregroundColor(StoriesColor.Feed.background)
                 .frame(width: 26, height: 26)
             Circle()
-                .foregroundColor(Color(.label))
+                .foregroundColor(StoriesColor.Avatar.plusButtonForeground)
                 .frame(width: 22, height: 22)
             Image(systemName: "plus")
                 .font(.system(size: 11, weight: .bold))
-                .foregroundColor(Color(.systemBackground))
+                .foregroundColor(StoriesColor.Feed.background)
         }
         .offset(x: -2, y: -2)
     }
@@ -62,15 +62,20 @@ struct StoryAvatarView: View {
         Text(story.user.isCurrent ? "Your story" : story.user.name)
             .font(.system(size: 12))
             .lineLimit(1)
-            .foregroundColor(.primary)
+            .foregroundColor(StoriesColor.Avatar.labelText)
     }
 
     private var ringStyle: AnyShapeStyle {
         if isSeen {
-            return AnyShapeStyle(Color(.systemGray6))
+            return AnyShapeStyle(StoriesColor.Feed.skeleton)
         } else {
             return AnyShapeStyle(LinearGradient(
-                colors: [.yellow, .orange, .pink, .purple],
+                colors: [
+                    StoriesColor.Ring.gradientStart,
+                    StoriesColor.Ring.gradientMiddle1,
+                    StoriesColor.Ring.gradientMiddle2,
+                    StoriesColor.Ring.gradientEnd
+                ],
                 startPoint: .bottomLeading,
                 endPoint: .topTrailing
             ))

@@ -22,7 +22,7 @@ struct StoryView: View {
         GeometryReader { geo in
             VStack(spacing: 12) {
                 ZStack {
-                    Color.black.ignoresSafeArea()
+                    StoriesColor.Story.background.ignoresSafeArea()
                     storyImage(width: geo.size.width, height: geo.size.height * 0.90)
                     tapZones
                     VStack {
@@ -34,9 +34,9 @@ struct StoryView: View {
 
                 footer
                     .frame(height: geo.size.height * 0.10)
-                    .background(Color.black)
+                    .background(StoriesColor.Story.background)
             }
-            .background(Color.black)
+            .background(StoriesColor.Story.background)
             .offset(y: dragOffset)
             .gesture(dragGesture)
         }
@@ -56,12 +56,12 @@ struct StoryView: View {
                         viewModel.startTimer()
                     }
             case .empty, .failure:
-                Color(.black)
+                StoriesColor.Story.background
                     .onAppear {
                         viewModel.startTimer()
                     }
             @unknown default:
-                Color(.black)
+                StoriesColor.Story.background
                     .onAppear {
                         viewModel.startTimer()
                     }
@@ -69,7 +69,7 @@ struct StoryView: View {
         }
         .frame(width: width, height: height)
         .clipped()
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.s.value))
         .id("\(viewModel.currentStory.user.id)-\(viewModel.currentStoryItem.imageURL)")
         .transition(.move(edge: slideDirection))
         .animation(.easeInOut(duration: 0.3), value: viewModel.currentStory.user.id)
@@ -86,7 +86,7 @@ struct StoryView: View {
                 dismissButton
             }
         }
-        .padding(8)
+        .padding(.space1w)
     }
 
     private var progressBars: some View {
@@ -94,12 +94,12 @@ struct StoryView: View {
             ForEach(0..<viewModel.currentStory.items.count, id: \.self) { index in
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(Color.white.opacity(0.4))
+                        RoundedRectangle(cornerRadius: CornerRadius.xxs.value)
+                            .fill(StoriesColor.Story.progressBackground)
                             .frame(height: 2)
 
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(Color.white)
+                        RoundedRectangle(cornerRadius: CornerRadius.xxs.value)
+                            .fill(StoriesColor.Story.progressFill)
                             .frame(width: viewModel.progressBarWidth(for: index, totalWidth: geo.size.width), height: 2)
                     }
                 }
@@ -114,7 +114,7 @@ struct StoryView: View {
                 .resizable()
                 .scaledToFill()
         } placeholder: {
-            Color(.systemGray6)
+            StoriesColor.Feed.skeleton
         }
         .frame(width: 32, height: 32)
         .clipShape(Circle())
@@ -123,7 +123,7 @@ struct StoryView: View {
     private var userLabel: some View {
         Text(viewModel.currentStory.user.isCurrent ? "Your story" : viewModel.currentStory.user.name)
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(.white)
+            .foregroundColor(StoriesColor.Story.text)
     }
 
     private var dismissButton: some View {
@@ -132,7 +132,7 @@ struct StoryView: View {
         } label: {
             Image(systemName: "xmark")
                 .font(.system(size: 25, weight: .light))
-                .foregroundColor(.white)
+                .foregroundColor(StoriesColor.Story.icon)
         }
         .accessibilityIdentifier("dismiss_button")
     }
@@ -143,20 +143,20 @@ struct StoryView: View {
             likeButton
             shareButton
         }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 32)
+        .padding(.horizontal, .space2w)
+        .padding(.bottom, .space4w)
     }
 
     private var messageTextfield: some View {
         TextField("Send message...", text: .constant(""))
             .disabled(true)
-            .foregroundColor(.white.opacity(0.8))
+            .foregroundColor(StoriesColor.Story.textSecondary)
             .font(.system(size: 15))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, .space2w)
+            .padding(.vertical, .space3v)
             .overlay(
-                RoundedRectangle(cornerRadius: 24)
-                    .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                RoundedRectangle(cornerRadius: CornerRadius.m.value)
+                    .stroke(StoriesColor.Story.messageBorder, lineWidth: 1)
             )
     }
 
@@ -166,7 +166,7 @@ struct StoryView: View {
         } label: {
             Image(systemName: viewModel.isCurrentItemLiked() ? "heart.fill" : "heart")
                 .font(.system(size: 28))
-                .foregroundColor(viewModel.isCurrentItemLiked() ? .red : .white)
+                .foregroundColor(viewModel.isCurrentItemLiked() ? StoriesColor.Story.like : StoriesColor.Story.progressFill)
         }
         .accessibilityIdentifier("like_button")
     }
@@ -177,7 +177,7 @@ struct StoryView: View {
         } label: {
             Image(systemName: "paperplane")
                 .font(.system(size: 24))
-                .foregroundColor(.white)
+                .foregroundColor(StoriesColor.Story.icon)
         }
         .alert("Feature coming soon", isPresented: $showShareAlert) {
             Button("OK", role: .cancel) {}
@@ -186,7 +186,7 @@ struct StoryView: View {
 
     private var tapZones: some View {
         HStack(spacing: 0) {
-            Color.clear
+            StoriesColor.Story.tapZone
                 .contentShape(Rectangle())
                 .onTapGesture { viewModel.goToPreviousItem() }
                 .pauseOnLongPress(
@@ -194,7 +194,7 @@ struct StoryView: View {
                     startTimer: { viewModel.startTimer() }
                 )
             
-            Color.clear
+            StoriesColor.Story.tapZone
                 .contentShape(Rectangle())
                 .onTapGesture { viewModel.goToNextItem() }
                 .pauseOnLongPress(
