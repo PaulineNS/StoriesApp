@@ -153,10 +153,10 @@ struct StoryView: View {
     }
 
     private var messageTextfield: some View {
-        TextField("Send message...", text: .constant(""))
-            .disabled(true)
+        Text("Send message...")
             .foregroundColor(StoriesColor.Story.textSecondary)
             .font(.system(size: 15))
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, .space2w)
             .padding(.vertical, .space3v)
             .overlay(
