@@ -13,6 +13,8 @@ final class PersistenceServiceImplTests: XCTestCase {
     private var service: PersistenceServiceImpl!
     private let suiteName = "com.storiesapp.tests"
 
+    // MARK: - Setup
+
     override func setUp() {
         super.setUp()
         UserDefaults(suiteName: suiteName)?.removePersistentDomain(forName: suiteName)
@@ -25,11 +27,26 @@ final class PersistenceServiceImplTests: XCTestCase {
         super.tearDown()
     }
 
+    // MARK: - Load State
+
     func testLoadState_initialState_shouldBeEmpty() {
         let state = service.loadState()
         XCTAssertTrue(state.seenItemIds.isEmpty)
         XCTAssertTrue(state.likedItemIds.isEmpty)
     }
+
+    func testLoadState_afterSave_shouldReturnSameData() {
+        let state = service.loadState()
+        state.seenItemIds.insert("item-1")
+        state.likedItemIds.insert("item-2")
+        service.save(state)
+
+        let reloaded = service.loadState()
+        XCTAssertEqual(reloaded.seenItemIds, state.seenItemIds)
+        XCTAssertEqual(reloaded.likedItemIds, state.likedItemIds)
+    }
+
+    // MARK: - Seen Items
 
     func testSave_seenItem_shouldPersist() {
         let state = service.loadState()
@@ -39,6 +56,19 @@ final class PersistenceServiceImplTests: XCTestCase {
         let reloaded = service.loadState()
         XCTAssertTrue(reloaded.seenItemIds.contains("item-1"))
     }
+
+    func testSave_multipleSeenItems_shouldPersistAll() {
+        let state = service.loadState()
+        state.seenItemIds.insert("item-1")
+        state.seenItemIds.insert("item-2")
+        state.seenItemIds.insert("item-3")
+        service.save(state)
+
+        let reloaded = service.loadState()
+        XCTAssertEqual(reloaded.seenItemIds, ["item-1", "item-2", "item-3"])
+    }
+
+    // MARK: - Liked Items
 
     func testSave_likedItem_shouldPersist() {
         let state = service.loadState()
@@ -61,27 +91,7 @@ final class PersistenceServiceImplTests: XCTestCase {
         XCTAssertFalse(reloaded.likedItemIds.contains("item-1"))
     }
 
-    func testSave_multipleSeenItems_shouldPersistAll() {
-        let state = service.loadState()
-        state.seenItemIds.insert("item-1")
-        state.seenItemIds.insert("item-2")
-        state.seenItemIds.insert("item-3")
-        service.save(state)
-
-        let reloaded = service.loadState()
-        XCTAssertEqual(reloaded.seenItemIds, ["item-1", "item-2", "item-3"])
-    }
-
-    func testLoadState_afterSave_shouldReturnSameData() {
-        let state = service.loadState()
-        state.seenItemIds.insert("item-1")
-        state.likedItemIds.insert("item-2")
-        service.save(state)
-
-        let reloaded = service.loadState()
-        XCTAssertEqual(reloaded.seenItemIds, state.seenItemIds)
-        XCTAssertEqual(reloaded.likedItemIds, state.likedItemIds)
-    }
+    // MARK: - Multiple Saves
 
     func testSave_multipleSaves_lastShouldWin() {
         let state1 = service.loadState()

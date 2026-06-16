@@ -17,6 +17,8 @@ final class StoryViewModelTests: XCTestCase {
     private var appState: AppState!
     private var viewModel: StoryViewModel!
 
+    // MARK: - Setup
+
     override func setUp() {
         super.setUp()
         router = AppRouterMock()
@@ -41,56 +43,7 @@ final class StoryViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func testGoToNextItem_shouldIncrementItemIndex() {
-        viewModel.goToNextItem()
-        XCTAssertEqual(viewModel.currentItemIndex, 1)
-    }
-
-    func testGoToPreviousItem_whenIndexIsZero_shouldNotDecrement() {
-        viewModel.goToPreviousItem()
-        XCTAssertEqual(viewModel.currentItemIndex, 0)
-    }
-
-    func testGoToNextItem_whenLastItem_shouldGoToNextStory() {
-        let firstStoryId = viewModel.currentStory.user.id
-        viewModel.goToNextItem()
-        viewModel.goToNextItem()
-        viewModel.goToNextItem()
-        XCTAssertNotEqual(viewModel.currentStory.user.id, firstStoryId)
-    }
-
-    func testMarkCurrentItemAsSeen_shouldSaveToService() {
-        viewModel.markCurrentItemAsSeen()
-        XCTAssertTrue(persistenceMock.seenItems.contains(viewModel.currentStoryItem.imageURL))
-    }
-
-    func testToggleLike_shouldAddLike() {
-        viewModel.toggleLikeCurrentItem()
-        XCTAssertTrue(viewModel.isCurrentItemLiked)
-    }
-
-    func testToggleLike_whenAlreadyLiked_shouldRemoveLike() {
-        viewModel.toggleLikeCurrentItem()
-        viewModel.toggleLikeCurrentItem()
-        XCTAssertFalse(viewModel.isCurrentItemLiked)
-    }
-
-    func testDismiss_shouldCallRouter() {
-        viewModel.dismiss()
-        XCTAssertTrue(router.didDismiss)
-    }
-
-    func testNavigateToNextStory_whenLastStory_shouldTriggerLoadMore() {
-        appState.stories = [StoryServiceMock.mockStories[0]]
-        viewModel = StoryViewModel(
-            router: router,
-            persistence: persistence,
-            appState: appState,
-            startIndex: 0
-        )
-        viewModel.navigateToStory(direction: .next)
-        XCTAssertTrue(appState.shouldLoadMorePage)
-    }
+    // MARK: - Init
 
     func testInit_whenFirstItemSeen_shouldStartOnSecondItem() {
         let story = StoryServiceMock.mockStories[0]
@@ -116,6 +69,62 @@ final class StoryViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.currentItemIndex, 0)
     }
 
+    // MARK: - Navigation Items
+
+    func testGoToNextItem_shouldIncrementItemIndex() {
+        viewModel.goToNextItem()
+        XCTAssertEqual(viewModel.currentItemIndex, 1)
+    }
+
+    func testGoToPreviousItem_whenIndexIsZero_shouldNotDecrement() {
+        viewModel.goToPreviousItem()
+        XCTAssertEqual(viewModel.currentItemIndex, 0)
+    }
+
+    func testGoToPreviousItem_whenIndexIsZero_shouldResetProgress() {
+        viewModel.goToPreviousItem()
+        XCTAssertEqual(viewModel.currentItemProgress, 0)
+    }
+
+    func testGoToNextItem_whenLastItem_shouldGoToNextStory() {
+        let firstStoryId = viewModel.currentStory.user.id
+        viewModel.goToNextItem()
+        viewModel.goToNextItem()
+        viewModel.goToNextItem()
+        XCTAssertNotEqual(viewModel.currentStory.user.id, firstStoryId)
+    }
+
+    func testGoToNextItem_whenLastItem_shouldChangeStory() {
+        let firstStoryId = viewModel.currentStory.user.id
+        while viewModel.currentItemIndex < viewModel.currentStory.items.count - 1 {
+            viewModel.goToNextItem()
+        }
+        viewModel.goToNextItem()
+        XCTAssertNotEqual(viewModel.currentStory.user.id, firstStoryId)
+    }
+
+    // MARK: - Navigation Stories
+
+    func testNavigateToNextStory_whenLastStory_shouldTriggerLoadMore() {
+        appState.stories = [StoryServiceMock.mockStories[0]]
+        viewModel = StoryViewModel(
+            router: router,
+            persistence: persistence,
+            appState: appState,
+            startIndex: 0
+        )
+        viewModel.navigateToStory(direction: .next)
+        XCTAssertTrue(appState.shouldLoadMorePage)
+    }
+
+    func testNavigateToPreviousStory_whenFirstStory_shouldNotChangeStory() {
+        let firstStoryId = viewModel.currentStory.user.id
+        viewModel.navigateToStory(direction: .previous)
+        XCTAssertEqual(viewModel.currentStory.user.id, firstStoryId)
+    }
+
+    // MARK: - Progress Bar
+
     func testProgressBarWidth_forPreviousIndex_shouldReturnTotalWidth() {
         viewModel.goToNextItem()
         let width = viewModel.progressBarWidth(for: 0, totalWidth: 100)
@@ -132,23 +141,28 @@ final class StoryViewModelTests: XCTestCase {
         XCTAssertEqual(width, viewModel.currentItemProgress * 100, accuracy: 0.01)
     }
 
-    func testGoToPreviousItem_whenIndexIsZero_shouldResetProgress() {
-        viewModel.goToPreviousItem()
-        XCTAssertEqual(viewModel.currentItemProgress, 0)
+    // MARK: - Persistence
+
+    func testMarkCurrentItemAsSeen_shouldSaveToService() {
+        viewModel.markCurrentItemAsSeen()
+        XCTAssertTrue(persistenceMock.seenItems.contains(viewModel.currentStoryItem.imageURL))
     }
 
-    func testNavigateToPreviousStory_whenFirstStory_shouldNotChangeStory() {
-        let firstStoryId = viewModel.currentStory.user.id
-        viewModel.navigateToStory(direction: .previous)
-        XCTAssertEqual(viewModel.currentStory.user.id, firstStoryId)
+    func testToggleLike_shouldAddLike() {
+        viewModel.toggleLikeCurrentItem()
+        XCTAssertTrue(viewModel.isCurrentItemLiked)
     }
 
-    func testGoToNextItem_whenLastItem_shouldChangeStory() {
-        let firstStoryId = viewModel.currentStory.user.id
-        while viewModel.currentItemIndex < viewModel.currentStory.items.count - 1 {
-            viewModel.goToNextItem()
-        }
-        viewModel.goToNextItem()
-        XCTAssertNotEqual(viewModel.currentStory.user.id, firstStoryId)
+    func testToggleLike_whenAlreadyLiked_shouldRemoveLike() {
+        viewModel.toggleLikeCurrentItem()
+        viewModel.toggleLikeCurrentItem()
+        XCTAssertFalse(viewModel.isCurrentItemLiked)
+    }
+
+    // MARK: - Actions
+
+    func testDismiss_shouldCallRouter() {
+        viewModel.dismiss()
+        XCTAssertTrue(router.didDismiss)
     }
 }

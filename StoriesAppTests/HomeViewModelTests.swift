@@ -17,6 +17,8 @@ final class HomeViewModelTests: XCTestCase {
     private var appState: AppState!
     private var viewModel: HomeViewModel!
 
+    // MARK: - Setup
+
     override func setUp() {
         super.setUp()
         router = AppRouterMock()
@@ -40,16 +42,28 @@ final class HomeViewModelTests: XCTestCase {
         super.tearDown()
     }
 
+    // MARK: - Load Stories
+
     func testLoadStories_shouldPopulateAppState() async {
         viewModel.loadStories()
         XCTAssertFalse(appState.stories.isEmpty)
     }
+
+    // MARK: - Select Story
 
     func testSelectStory_shouldPresentSheet() {
         appState.stories = StoryServiceMock.mockStories
         viewModel.selectStory(at: 0)
         XCTAssertNotNil(router.presentedSheet)
     }
+
+    func testSelectStory_shouldPresentSheetWithCorrectIndex() {
+        appState.stories = StoryServiceMock.mockStories
+        viewModel.selectStory(at: 1)
+        XCTAssertEqual(router.presentedSheet, .story(startIndex: 1))
+    }
+
+    // MARK: - isStorySeen
 
     func testIsStorySeen_whenNoItemsSeen_shouldReturnFalse() {
         let story = StoryServiceMock.mockStories[0]
@@ -61,6 +75,14 @@ final class HomeViewModelTests: XCTestCase {
         story.items.forEach { persistence.state.seenItemIds.insert($0.imageURL) }
         XCTAssertTrue(viewModel.isStorySeen(story))
     }
+
+    func testIsStorySeen_whenOnlySomeItemsSeen_shouldReturnFalse() {
+        let story = StoryServiceMock.mockStories[0]
+        persistence.state.seenItemIds.insert(story.items[0].imageURL)
+        XCTAssertFalse(viewModel.isStorySeen(story))
+    }
+
+    // MARK: - Pagination
 
     func testLoadMoreStories_shouldAppendNewStories() {
         appState.stories = StoryServiceMock.mockStories
@@ -101,11 +123,7 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertGreaterThan(appState.stories.count, initialCount)
     }
 
-    func testIsStorySeen_whenOnlySomeItemsSeen_shouldReturnFalse() {
-        let story = StoryServiceMock.mockStories[0]
-        persistence.state.seenItemIds.insert(story.items[0].imageURL)
-        XCTAssertFalse(viewModel.isStorySeen(story))
-    }
+    // MARK: - Index
 
     func testIndexOfStory_shouldReturnCorrectIndex() {
         appState.stories = StoryServiceMock.mockStories
@@ -117,20 +135,9 @@ final class HomeViewModelTests: XCTestCase {
         appState.stories = StoryServiceMock.mockStories
         let unknownStory = Story(
             id: "unknown",
-            user: User(
-                id: "unknown",
-                name: "unknown",
-                avatarURL: "",
-                isCurrent: false
-            ),
+            user: User(id: "unknown", name: "unknown", avatarURL: "", isCurrent: false),
             items: []
         )
         XCTAssertNil(viewModel.index(of: unknownStory))
-    }
-
-    func testSelectStory_shouldPresentSheetWithCorrectIndex() {
-        appState.stories = StoryServiceMock.mockStories
-        viewModel.selectStory(at: 1)
-        XCTAssertEqual(router.presentedSheet, .story(startIndex: 1))
     }
 }

@@ -10,6 +10,8 @@ import Foundation
 @Observable
 final class StoryViewModel {
 
+    // MARK: - Properties
+
     private(set) var currentStory: Story
     private(set) var currentItemIndex: Int = 0
     private(set) var currentItemProgress: CGFloat = 0
@@ -22,6 +24,8 @@ final class StoryViewModel {
 
     private static let storyItemDuration: CGFloat = 5.0
     private static let timerInterval: CGFloat = 0.05
+
+    // MARK: - Init
 
     init(
         router: AppRouter,
@@ -37,6 +41,8 @@ final class StoryViewModel {
         self.currentItemIndex = firstUnseenItemIndex(in: appState.stories[startIndex])
     }
 
+    // MARK: - Computed Properties
+
     var currentStoryItem: StoryItem {
         currentStory.items[currentItemIndex]
     }
@@ -44,6 +50,8 @@ final class StoryViewModel {
     var isCurrentItemLiked: Bool {
         persistence.state.likedItemIds.contains(currentStoryItem.imageURL)
     }
+
+    // MARK: - Timer
 
     func startTimer() {
         stopTimer()
@@ -78,6 +86,8 @@ final class StoryViewModel {
             goToNextItem()
         }
     }
+
+    // MARK: - Navigation
 
     func goToNextItem() {
         if currentItemIndex < currentStory.items.count - 1 {
@@ -131,6 +141,8 @@ final class StoryViewModel {
         }) ?? 0
     }
 
+    // MARK: - Persistence
+
     func markCurrentItemAsSeen() {
         persistence.state.seenItemIds.insert(currentStoryItem.imageURL)
         persistence.save()
@@ -144,6 +156,8 @@ final class StoryViewModel {
         }
         persistence.save()
     }
+
+    // MARK: - Actions
 
     func dismiss() {
         router.dismissSheet()

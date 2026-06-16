@@ -10,11 +10,14 @@ import Foundation
 @Observable
 final class HomeViewModel {
 
+    // MARK: - Properties
+
     private let service: StoryServiceProtocol
     private let persistence: StoryPersistence
     private let router: AppRouter
-
     let appState: AppState
+
+    // MARK: - Init
 
     init(
         service: StoryServiceProtocol = StoryService(),
@@ -28,12 +31,16 @@ final class HomeViewModel {
         self.appState = appState
     }
 
+    // MARK: - Computed Properties
+
     var stories: [Story] { appState.stories }
 
     var showErrorAlert: Bool {
         get { appState.showErrorAlert }
         set { appState.showErrorAlert = newValue }
     }
+
+    // MARK: - Stories
 
     @MainActor
     func loadStories() {
@@ -59,6 +66,8 @@ final class HomeViewModel {
     func isStorySeen(_ story: Story) -> Bool {
         story.items.allSatisfy { persistence.state.seenItemIds.contains($0.imageURL) }
     }
+
+    // MARK: - Pagination
 
     func loadMoreStoriesIfNeeded(currentStory: Story) {
         guard let index = appState.stories.firstIndex(where: { $0.id == currentStory.id }) else { return }
