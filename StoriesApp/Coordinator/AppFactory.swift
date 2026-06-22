@@ -12,11 +12,13 @@ final class AppFactory {
 
     private let persistence = StoryPersistence()
     private let appState = AppState()
+    private let repository: StoryRepositoryProtocol = StoryRepository()
 
     func makeHomeView(router: AppRouter) -> some View {
         HomeView(
             viewModel: HomeViewModel(
-                service: StoryService(),
+                fetchStoriesUseCase: FetchStoriesUseCase(repository: repository),
+                loadMoreStoriesUseCase: LoadMoreStoriesUseCase(repository: repository),
                 persistence: persistence,
                 router: router,
                 appState: appState

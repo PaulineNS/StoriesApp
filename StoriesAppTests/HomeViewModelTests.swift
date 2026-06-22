@@ -25,8 +25,10 @@ final class HomeViewModelTests: XCTestCase {
         persistenceMock = PersistenceServiceMock()
         persistence = StoryPersistence(service: persistenceMock)
         appState = AppState()
+        let repository = StoryRepository(service: StoryServiceMock())
         viewModel = HomeViewModel(
-            service: StoryServiceMock(),
+            fetchStoriesUseCase: FetchStoriesUseCase(repository: repository),
+            loadMoreStoriesUseCase: LoadMoreStoriesUseCase(repository: repository),
             persistence: persistence,
             router: router,
             appState: appState

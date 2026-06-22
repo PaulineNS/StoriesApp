@@ -13,7 +13,8 @@ final class HomeViewModel {
 
     // MARK: - Properties
 
-    private let service: StoryServiceProtocol
+    private let fetchStoriesUseCase: FetchStoriesUseCaseProtocol
+    private let loadMoreStoriesUseCase: LoadMoreStoriesUseCaseProtocol
     private let persistence: StoryPersistence
     private let router: AppRouter
     let appState: AppState
@@ -21,12 +22,14 @@ final class HomeViewModel {
     // MARK: - Init
 
     init(
-        service: StoryServiceProtocol = StoryService(),
+        fetchStoriesUseCase: FetchStoriesUseCaseProtocol,
+        loadMoreStoriesUseCase: LoadMoreStoriesUseCaseProtocol,
         persistence: StoryPersistence,
         router: AppRouter,
         appState: AppState
     ) {
-        self.service = service
+        self.fetchStoriesUseCase = fetchStoriesUseCase
+        self.loadMoreStoriesUseCase = loadMoreStoriesUseCase
         self.persistence = persistence
         self.router = router
         self.appState = appState
@@ -45,7 +48,7 @@ final class HomeViewModel {
 
     func loadStories() async {
         do {
-            appState.stories = try await service.fetchStories()
+            appState.stories = try await fetchStoriesUseCase.execute()
         } catch let error as StoryError {
             appState.error = error
             appState.showErrorAlert = true
@@ -80,9 +83,8 @@ final class HomeViewModel {
         guard !appState.isLoadingMorePage else { return }
         appState.isLoadingMorePage = true
         do {
-            let baseStories = try await service.fetchStories()
             appState.currentPage += 1
-            let newStories = makeNewStories(from: baseStories)
+            let newStories = try await loadMoreStoriesUseCase.execute(currentPage: appState.currentPage)
             appState.stories.append(contentsOf: newStories)
         } catch let error as StoryError {
             appState.error = error
@@ -92,24 +94,5 @@ final class HomeViewModel {
             appState.showErrorAlert = true
         }
         appState.isLoadingMorePage = false
-    }
-
-    private func makeNewStories(from baseStories: [Story]) -> [Story] {
-        baseStories
-            .filter { !$0.user.isCurrent }
-            .map { story in
-                Story(
-                    id: "\(story.id)-page\(appState.currentPage)",
-                    user: User(
-                        id: "\(story.user.id)-page\(appState.currentPage)",
-                        name: story.user.name,
-                        avatarURL: story.user.avatarURL,
-                        isCurrent: false
-                    ),
-                    items: story.items.map { item in
-                        StoryItem(imageURL: "\(item.imageURL)?page=\(appState.currentPage)")
-                    }
-                )
-            }
     }
 }
