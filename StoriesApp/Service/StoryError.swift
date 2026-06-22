@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StoryError: Error, Identifiable, Sendable {
+enum StoryError: Error, Identifiable, Sendable, Equatable {
     case fileNotFound
     case unknown
 
