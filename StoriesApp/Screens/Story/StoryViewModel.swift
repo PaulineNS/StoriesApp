@@ -8,6 +8,7 @@
 import Foundation
 
 @Observable
+@MainActor
 final class StoryViewModel {
 
     // MARK: - Properties
@@ -57,7 +58,7 @@ final class StoryViewModel {
         stopTimer()
         markCurrentItemAsSeen()
         timer = Timer.scheduledTimer(withTimeInterval: Self.timerInterval, repeats: true) { [weak self] _ in
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
                 self?.updateProgress()
             }
         }

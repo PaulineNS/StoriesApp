@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Story: Codable {
+struct Story: Codable, Sendable {
     let id: String
     let user: User
     let items: [StoryItem]

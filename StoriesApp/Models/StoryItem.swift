@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StoryItem: Codable {
+struct StoryItem: Codable, Sendable {
     let imageURL: String
 
     enum CodingKeys: String, CodingKey {

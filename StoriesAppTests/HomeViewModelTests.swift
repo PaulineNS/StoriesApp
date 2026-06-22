@@ -45,7 +45,7 @@ final class HomeViewModelTests: XCTestCase {
     // MARK: - Load Stories
 
     func testLoadStories_shouldPopulateAppState() async {
-        viewModel.loadStories()
+        await viewModel.loadStories()
         XCTAssertFalse(appState.stories.isEmpty)
     }
 
@@ -84,42 +84,42 @@ final class HomeViewModelTests: XCTestCase {
 
     // MARK: - Pagination
 
-    func testLoadMoreStories_shouldAppendNewStories() {
+    func testLoadMoreStories_shouldAppendNewStories() async {
         appState.stories = StoryServiceMock.mockStories
         let initialCount = appState.stories.count
-        viewModel.loadMoreStories()
+        await viewModel.loadMoreStories()
         XCTAssertGreaterThan(appState.stories.count, initialCount)
     }
 
-    func testLoadMoreStories_whenAlreadyLoading_shouldNotLoadAgain() {
+    func testLoadMoreStories_whenAlreadyLoading_shouldNotLoadAgain() async {
         appState.stories = StoryServiceMock.mockStories
         appState.isLoadingMorePage = true
         let initialCount = appState.stories.count
-        viewModel.loadMoreStories()
+        await viewModel.loadMoreStories()
         XCTAssertEqual(appState.stories.count, initialCount)
     }
 
-    func testLoadMoreStories_newStoriesShouldHaveDifferentIds() {
+    func testLoadMoreStories_newStoriesShouldHaveDifferentIds() async {
         appState.stories = StoryServiceMock.mockStories
         let originalIds = Set(appState.stories.map { $0.user.id })
-        viewModel.loadMoreStories()
+        await viewModel.loadMoreStories()
         let newStories = appState.stories.filter { !originalIds.contains($0.user.id) }
         XCTAssertFalse(newStories.isEmpty)
     }
 
-    func testLoadMoreStoriesIfNeeded_whenFarFromEnd_shouldNotLoad() {
+    func testLoadMoreStoriesIfNeeded_whenFarFromEnd_shouldNotLoad() async {
         appState.stories = StoryServiceMock.mockStories
         let initialCount = appState.stories.count
         let firstStory = appState.stories[0]
-        viewModel.loadMoreStoriesIfNeeded(currentStory: firstStory)
+        await viewModel.loadMoreStoriesIfNeeded(currentStory: firstStory)
         XCTAssertEqual(appState.stories.count, initialCount)
     }
 
-    func testLoadMoreStoriesIfNeeded_whenCloseToEnd_shouldLoadMore() {
+    func testLoadMoreStoriesIfNeeded_whenCloseToEnd_shouldLoadMore() async {
         appState.stories = StoryServiceMock.mockStories
         let initialCount = appState.stories.count
         let lastStory = appState.stories[appState.stories.count - 3]
-        viewModel.loadMoreStoriesIfNeeded(currentStory: lastStory)
+        await viewModel.loadMoreStoriesIfNeeded(currentStory: lastStory)
         XCTAssertGreaterThan(appState.stories.count, initialCount)
     }
 

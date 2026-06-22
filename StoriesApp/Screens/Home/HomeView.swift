@@ -24,20 +24,24 @@ struct HomeView: View {
             homeFeed
         }
         .background(StoriesColor.Feed.background)
-        .onAppear {
-            viewModel.loadStories()
+        .task {
+            await viewModel.loadStories()
         }
         .onChange(of: viewModel.appState.shouldLoadMorePage) { _, shouldLoad in
             if shouldLoad {
-                viewModel.loadMoreStories()
-                viewModel.appState.shouldLoadMorePage = false
+                Task {
+                    await viewModel.loadMoreStories()
+                    viewModel.appState.shouldLoadMorePage = false
+                }
             }
         }
         .errorAlert(
             isPresented: $viewModel.showErrorAlert,
             error: viewModel.appState.error,
             onRetry: {
-                viewModel.loadStories()
+                Task {
+                    await viewModel.loadStories()
+                }
             }
         )
     }
@@ -88,8 +92,8 @@ struct HomeView: View {
                             viewModel.selectStory(at: index)
                         }
                     }
-                    .onAppear {
-                        viewModel.loadMoreStoriesIfNeeded(currentStory: story)
+                    .task {
+                        await viewModel.loadMoreStoriesIfNeeded(currentStory: story)
                     }
                 }
             }

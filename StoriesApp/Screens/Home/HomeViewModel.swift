@@ -8,6 +8,7 @@
 import Foundation
 
 @Observable
+@MainActor
 final class HomeViewModel {
 
     // MARK: - Properties
@@ -42,10 +43,9 @@ final class HomeViewModel {
 
     // MARK: - Stories
 
-    @MainActor
-    func loadStories() {
+    func loadStories() async {
         do {
-            appState.stories = try service.fetchStories()
+            appState.stories = try await service.fetchStories()
         } catch let error as StoryError {
             appState.error = error
             appState.showErrorAlert = true
@@ -69,18 +69,18 @@ final class HomeViewModel {
 
     // MARK: - Pagination
 
-    func loadMoreStoriesIfNeeded(currentStory: Story) {
+    func loadMoreStoriesIfNeeded(currentStory: Story) async {
         guard let index = appState.stories.firstIndex(where: { $0.id == currentStory.id }) else { return }
         if index >= appState.stories.count - 5 {
-            loadMoreStories()
+            await loadMoreStories()
         }
     }
 
-    func loadMoreStories() {
+    func loadMoreStories() async {
         guard !appState.isLoadingMorePage else { return }
         appState.isLoadingMorePage = true
         do {
-            let baseStories = try service.fetchStories()
+            let baseStories = try await service.fetchStories()
             appState.currentPage += 1
             let newStories = makeNewStories(from: baseStories)
             appState.stories.append(contentsOf: newStories)

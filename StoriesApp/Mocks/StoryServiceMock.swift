@@ -11,9 +11,13 @@ import Foundation
 @MainActor
 final class StoryServiceMock: StoryServiceProtocol {
 
-    static let mockStories: [Story] = (try? StoryServiceMock().fetchStories()) ?? []
+    static let mockStories: [Story] = StoryServiceMock.makeMockStories()
 
-    func fetchStories() throws -> [Story] {
+    func fetchStories() async throws -> [Story] {
+        Self.makeMockStories()
+    }
+
+    nonisolated private static func makeMockStories() -> [Story] {
         return [
             Story(
                 id: "story-0",
