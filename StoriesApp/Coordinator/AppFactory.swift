@@ -30,7 +30,9 @@ final class AppFactory {
         StoryView(
             viewModel: StoryViewModel(
                 router: router,
-                persistence: persistence,
+                toggleLikeUseCase: ToggleLikeUseCase(repository: persistence),
+                markStorySeenUseCase: MarkStorySeenUseCase(repository: persistence),
+                persistenceRepository: persistence,
                 appState: appState,
                 startIndex: startIndex
             )

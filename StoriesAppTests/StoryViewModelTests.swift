@@ -28,7 +28,9 @@ final class StoryViewModelTests: XCTestCase {
         appState.stories = StoryServiceMock.mockStories
         viewModel = StoryViewModel(
             router: router,
-            persistence: persistence,
+            toggleLikeUseCase: ToggleLikeUseCase(repository: persistence),
+            markStorySeenUseCase: MarkStorySeenUseCase(repository: persistence),
+            persistenceRepository: persistence,
             appState: appState,
             startIndex: 0
         )
@@ -50,7 +52,9 @@ final class StoryViewModelTests: XCTestCase {
         persistence.state.seenItemIds.insert(story.items[0].imageURL)
         viewModel = StoryViewModel(
             router: router,
-            persistence: persistence,
+            toggleLikeUseCase: ToggleLikeUseCase(repository: persistence),
+            markStorySeenUseCase: MarkStorySeenUseCase(repository: persistence),
+            persistenceRepository: persistence,
             appState: appState,
             startIndex: 0
         )
@@ -62,7 +66,9 @@ final class StoryViewModelTests: XCTestCase {
         story.items.forEach { persistence.state.seenItemIds.insert($0.imageURL) }
         viewModel = StoryViewModel(
             router: router,
-            persistence: persistence,
+            toggleLikeUseCase: ToggleLikeUseCase(repository: persistence),
+            markStorySeenUseCase: MarkStorySeenUseCase(repository: persistence),
+            persistenceRepository: persistence,
             appState: appState,
             startIndex: 0
         )
@@ -109,7 +115,9 @@ final class StoryViewModelTests: XCTestCase {
         appState.stories = [StoryServiceMock.mockStories[0]]
         viewModel = StoryViewModel(
             router: router,
-            persistence: persistence,
+            toggleLikeUseCase: ToggleLikeUseCase(repository: persistence),
+            markStorySeenUseCase: MarkStorySeenUseCase(repository: persistence),
+            persistenceRepository: persistence,
             appState: appState,
             startIndex: 0
         )

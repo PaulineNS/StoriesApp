@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class StoryPersistence {
+final class StoryPersistence: PersistenceRepositoryProtocol {
 
     let state: PersistenceState
     private let service: PersistenceService
@@ -19,5 +19,27 @@ final class StoryPersistence {
 
     func save() {
         service.save(state)
+    }
+
+    func isItemLiked(imageURL: String) -> Bool {
+        state.likedItemIds.contains(imageURL)
+    }
+
+    func isItemSeen(imageURL: String) -> Bool {
+        state.seenItemIds.contains(imageURL)
+    }
+
+    func toggleLike(imageURL: String) {
+        if state.likedItemIds.contains(imageURL) {
+            state.likedItemIds.remove(imageURL)
+        } else {
+            state.likedItemIds.insert(imageURL)
+        }
+        save()
+    }
+
+    func markAsSeen(imageURL: String) {
+        state.seenItemIds.insert(imageURL)
+        save()
     }
 }

@@ -16,10 +16,13 @@ final class StoryViewModel {
     private(set) var currentStory: Story
     private(set) var currentItemIndex: Int = 0
     private(set) var currentItemProgress: CGFloat = 0
+    private(set) var isCurrentItemLiked: Bool
     private var currentStoryIndex: Int
 
     private let router: AppRouter
-    private let persistence: StoryPersistence
+    private let toggleLikeUseCase: ToggleLikeUseCaseProtocol
+    private let markStorySeenUseCase: MarkStorySeenUseCaseProtocol
+    private let persistenceRepository: PersistenceRepositoryProtocol
     private let appState: AppState
     private var timer: Timer?
 
@@ -30,26 +33,28 @@ final class StoryViewModel {
 
     init(
         router: AppRouter,
-        persistence: StoryPersistence,
+        toggleLikeUseCase: ToggleLikeUseCaseProtocol,
+        markStorySeenUseCase: MarkStorySeenUseCaseProtocol,
+        persistenceRepository: PersistenceRepositoryProtocol,
         appState: AppState,
         startIndex: Int
     ) {
         self.router = router
-        self.persistence = persistence
+        self.toggleLikeUseCase = toggleLikeUseCase
+        self.markStorySeenUseCase = markStorySeenUseCase
+        self.persistenceRepository = persistenceRepository
         self.appState = appState
         self.currentStoryIndex = startIndex
         self.currentStory = appState.stories[startIndex]
-        self.currentItemIndex = firstUnseenItemIndex(in: appState.stories[startIndex])
+        let firstItemIndex = Self.firstUnseenItemIndex(in: appState.stories[startIndex], repository: persistenceRepository)
+        self.currentItemIndex = firstItemIndex
+        self.isCurrentItemLiked = persistenceRepository.isItemLiked(imageURL: appState.stories[startIndex].items[firstItemIndex].imageURL)
     }
 
     // MARK: - Computed Properties
 
     var currentStoryItem: StoryItem {
         currentStory.items[currentItemIndex]
-    }
-
-    var isCurrentItemLiked: Bool {
-        persistence.state.likedItemIds.contains(currentStoryItem.imageURL)
     }
 
     // MARK: - Timer
@@ -96,6 +101,7 @@ final class StoryViewModel {
             currentItemIndex += 1
             currentItemProgress = 0
             markCurrentItemAsSeen()
+            refreshLikedState()
         } else {
             navigateToStory(direction: .next)
         }
@@ -107,6 +113,7 @@ final class StoryViewModel {
             currentItemIndex -= 1
             currentItemProgress = 0
             markCurrentItemAsSeen()
+            refreshLikedState()
         } else {
             navigateToStory(direction: .previous)
         }
@@ -131,31 +138,30 @@ final class StoryViewModel {
         }
         stopTimer()
         currentStory = appState.stories[currentStoryIndex]
-        currentItemIndex = firstUnseenItemIndex(in: currentStory)
+        currentItemIndex = Self.firstUnseenItemIndex(in: currentStory, repository: persistenceRepository)
         currentItemProgress = 0
         markCurrentItemAsSeen()
+        refreshLikedState()
     }
 
-    private func firstUnseenItemIndex(in story: Story) -> Int {
+    private static func firstUnseenItemIndex(in story: Story, repository: PersistenceRepositoryProtocol) -> Int {
         story.items.firstIndex(where: {
-            !persistence.state.seenItemIds.contains($0.imageURL)
+            !repository.isItemSeen(imageURL: $0.imageURL)
         }) ?? 0
     }
 
     // MARK: - Persistence
 
     func markCurrentItemAsSeen() {
-        persistence.state.seenItemIds.insert(currentStoryItem.imageURL)
-        persistence.save()
+        markStorySeenUseCase.execute(imageURL: currentStoryItem.imageURL)
     }
 
     func toggleLikeCurrentItem() {
-        if persistence.state.likedItemIds.contains(currentStoryItem.imageURL) {
-            persistence.state.likedItemIds.remove(currentStoryItem.imageURL)
-        } else {
-            persistence.state.likedItemIds.insert(currentStoryItem.imageURL)
-        }
-        persistence.save()
+        isCurrentItemLiked = toggleLikeUseCase.execute(imageURL: currentStoryItem.imageURL)
+    }
+
+    private func refreshLikedState() {
+        isCurrentItemLiked = persistenceRepository.isItemLiked(imageURL: currentStoryItem.imageURL)
     }
 
     // MARK: - Actions
