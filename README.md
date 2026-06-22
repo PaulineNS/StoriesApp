@@ -1,6 +1,6 @@
 # StoriesApp
 
-Instagram Stories-like feature — iOS technical assessment.
+Instagram Stories-like feature
 
 ## Features
 
@@ -12,11 +12,21 @@ Instagram Stories-like feature — iOS technical assessment.
 
 ## Architecture
 
-MVVM-C with a shared `AppState`.
+Clean Architecture (Domain / Data / Presentation) combined with MVVM-C and a shared `AppState`.
 
-The main challenge was sharing state between `HomeViewModel` and `StoryViewModel` — when a story item is marked as seen in the viewer, the ring on the list needs to update instantly. I solved this with a shared `@Observable AppState` injected via `AppFactory`, avoiding any coupling between the two ViewModels.
+**Domain** holds the entities (`Story`, `User`, `StoryItem`), the repository protocols, and the UseCases (`FetchStoriesUseCase`, `LoadMoreStoriesUseCase`, `ToggleLikeUseCase`, `MarkStorySeenUseCase`) — pure business logic with no dependency on SwiftUI or any data source detail.
 
-**`AppRouter`** handles navigation, **`AppFactory`** creates views and ViewModels, **`AppState`** holds shared data.
+**Data** contains the concrete repositories (`StoryRepository`) that implement the Domain protocols, backed by `StoryService` for local JSON access.
+
+**Presentation** holds the Views and ViewModels. ViewModels only depend on UseCases — they never know about repositories or services directly.
+
+The main challenge was sharing state between `HomeViewModel` and `StoryViewModel`. When a story item is marked as seen in the viewer, the ring on the list needs to update instantly. I solved this with a shared `@Observable AppState` injected via `AppFactory`, avoiding any coupling between the two ViewModels.
+
+**`AppRouter`** handles navigation, **`AppFactory`** assembles repositories, UseCases, views and ViewModels, **`AppState`** holds shared data.
+
+## Concurrency
+
+The data layer is fully `async`/`await`. `StoryService` reads and decodes the JSON off the main actor using `Task.detached`, while ViewModels are explicitly `@MainActor` since they drive the UI. `HomeView` uses `.task` instead of `.onAppear` to trigger async loading.
 
 ## Data
 
@@ -32,7 +42,7 @@ Color, spacing and corner radius tokens. Reusable `ViewModifier` extensions for 
 
 ## Tests
 
-Unit tests on `StoryViewModel`, `HomeViewModel` and `PersistenceServiceImpl`. UI tests for core user flows.
+Unit tests on UseCases (isolated with repository mocks), ViewModels, and `PersistenceServiceImpl`. UI tests for core user flows.
 
 ## Requirements
 
